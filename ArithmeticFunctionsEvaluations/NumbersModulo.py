@@ -7,4 +7,6 @@ class NumbersModulo(Operator):
         :param num2: number2
         :return: returns the modulo of the number2 from the number 1
         """
+        if num2 == 0:
+            raise ZeroDivisionError("You cannot Modulo a number by zero")
         return num1%num2

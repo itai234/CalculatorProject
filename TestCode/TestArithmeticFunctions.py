@@ -5,8 +5,7 @@ from ArithmeticFunctionsEvaluations.OperatorFactory import OperatorFactory
 factory = OperatorFactory()
 
 def test_FactoryAdd():
-    assert factory.Operation('+',3,4)==7
-
+    assert factory.Operation('+',2,4)==6
 
 def test_FactorySub():
     assert factory.Operation('-',3,4)==-1
@@ -21,7 +20,7 @@ def test_FactoryPow():
     assert factory.Operation('^',3,4)==81
 
 def test_FactoryMod():
-    assert factory.Operation('%',3,4)==3
+    assert factory.Operation('%',3,0)==0
 
 def test_FactoryMax():
     assert factory.Operation('$',3,4)==4
