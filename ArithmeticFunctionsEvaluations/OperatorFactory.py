@@ -1,3 +1,5 @@
+
+
 from ArithmeticFunctionsEvaluations.NumbersAvg import NumbersAvg
 from ArithmeticFunctionsEvaluations.NumbersDivision import NumbersDivision
 from ArithmeticFunctionsEvaluations.NumberNeg import NumberNeg
@@ -9,6 +11,7 @@ from ArithmeticFunctionsEvaluations.NumbersPower import NumbersPower
 from ArithmeticFunctionsEvaluations.NumbersMinimum import NumbersMinimum
 from ArithmeticFunctionsEvaluations.NumbersMaximum import NumbersMaximum
 from ArithmeticFunctionsEvaluations.NumberFactorial import NumberFactorial
+from ArithmeticFunctionsEvaluations.NumberSumDigits import NumberSumDigits
 
 
 class OperatorFactory:
@@ -29,7 +32,8 @@ class OperatorFactory:
             '&': NumbersMinimum,
             '@': NumbersAvg,
             '~': NumberNeg,
-            '!': NumberFactorial
+            '!': NumberFactorial,
+            '#': NumberSumDigits
         }
 
     def Operation(self, operatorType, num1, num2=None):
@@ -43,3 +47,6 @@ class OperatorFactory:
             raise ValueError(f"No Such Operator as : {operatorType}")
         operatorInstance = operatorClass()
         return operatorInstance.execute(num1, num2)
+
+    def getOperators(self) -> list:
+        return list(self._operators.keys())

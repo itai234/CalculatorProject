@@ -37,6 +37,9 @@ def test_FactoryNeg():
 def test_FactoryFactorial():
     assert factory.Operation('!',3,)==6
 
+def test_SumDigits():
+    assert factory.Operation('#',123) == 6
+
 
 
 
