@@ -1,5 +1,4 @@
 
-
 from ArithmeticFunctionsEvaluations.NumbersAvg import NumbersAvg
 from ArithmeticFunctionsEvaluations.NumbersDivision import NumbersDivision
 from ArithmeticFunctionsEvaluations.NumberNeg import NumberNeg
@@ -35,6 +34,20 @@ class OperatorFactory:
             '!': NumberFactorial,
             '#': NumberSumDigits
         }
+        self._Priorities = {
+            '+': 1,
+            '-': 1,
+            '*': 2,
+            '/': 2,
+            '^': 3,
+            '%': 4,
+            '$': 5,
+            '&': 5,
+            '@': 5,
+            '~': 6,
+            '!': 6,
+            '#': 6
+        }
 
     def Operation(self, operatorType, num1, num2=None):
         """
@@ -50,3 +63,29 @@ class OperatorFactory:
 
     def getOperators(self) -> list:
         return list(self._operators.keys())
+    def getNumbers(self) ->list:
+        return list("0123456789")
+    def getParenthesis(self)-> list:
+        return list("()")
+    def getFloatingPoint(self)->list:
+        return list(".")
+    def getOpeningParenthesis(self)->list:
+        return list("(")
+    def getClosingParenthesis(self) -> list:
+        return list(")")
+    def getTwoOperandsOperators(self)-> list:
+        return list("+-*/^%$&@")
+    def getOneOperandsOperators(self) -> list:
+        return list("#~!")
+    def getPriority(self,Operator:str)->int:
+        return self._Priorities.get(Operator)
+
+    def getSide(self, operator: str) -> str:
+        operator_class = self._operators.get(operator)
+        if operator_class is None:
+            raise ValueError(f"Operator '{operator}' is not defined.")
+        return operator_class().getSide()
+    def getParenthesisPairs(self) ->dict:
+        return {'(':')'}
+    def getAllLegalLetters(self)->list:
+        return list(self.getOperators()+ self.getNumbers()+ self.getParenthesis()+ self.getFloatingPoint())

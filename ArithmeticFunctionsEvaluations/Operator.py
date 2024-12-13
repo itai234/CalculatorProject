@@ -7,3 +7,9 @@ class Operator(ABC):
     @abstractmethod
     def execute(self,num1,num2 =None):
         pass
+    @abstractmethod
+    def getSide(self)->str:
+        pass
+    @abstractmethod
+    def getPriority(self)->int:
+        pass

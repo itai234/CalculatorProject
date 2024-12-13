@@ -1,4 +1,6 @@
 from ArithmeticFunctionsEvaluations.Operator import Operator
+from ArithmeticFunctionsEvaluations.OperatorFactory import *
+
 
 class NumbersMinimum(Operator):
     def execute(self, num1, num2):
@@ -10,3 +12,8 @@ class NumbersMinimum(Operator):
         if num1 > num2:
             return num2
         return num1
+    def getSide(self) -> str:
+        return "Middle"
+
+    def getPriority(self) -> int:
+        return OperatorFactory().getPriority("&")
