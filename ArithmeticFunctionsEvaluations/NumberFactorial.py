@@ -6,10 +6,10 @@ class NumberFactorial(Operator):
         :param num: operand
         :return: the factorial of the number given
         """
-        if num1 < 0 or not type(num1) == int:
+        if num1 < 0 or not type(num1) == float:
             raise ValueError("Factorial is only for the positive integers")
         result = 1
-        for i in range(1, num1+ 1):
+        for i in range(1, int(num1+ 1)):
             result *= i
         return result
 

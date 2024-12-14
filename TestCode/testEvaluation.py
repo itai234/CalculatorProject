@@ -5,7 +5,7 @@ evaluator = EvaluationOfPostFix()
 
 
 def test_addition():
-    expression = ['2', '3', '+']  # 2 + 3
+    expression = [ '3', '!']  # 2 + 3
     evaluator.setExpression(expression)
     print(evaluator.evaluate())  # Expected: 5
 

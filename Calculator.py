@@ -1,3 +1,4 @@
+from Evaluation.EvaluatePostFixExpression import EvaluationOfPostFix
 from ReformattingEquation.Reformater import Reformat
 from Evaluation.TransformInfixToPostFix import *
 InfixConverter = InfixToPostfix()
@@ -12,8 +13,9 @@ while(True):
             InfixConverter.setExpression(equation)
             InfixConverter.convert()
             PostFix = InfixConverter.getPostFix()
-            print(equation)
-            print(PostFix)
+            evaluator = EvaluationOfPostFix()
+            evaluator.setExpression(PostFix)
+            print(evaluator.evaluate())
     except  Exception as e :
         print(e)
 

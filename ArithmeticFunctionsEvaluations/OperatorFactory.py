@@ -57,7 +57,7 @@ class OperatorFactory:
             'Unary':2.5
         }
 
-    def Operation(self, operatorType, num1, num2=None):
+    def Operation(self, operatorType, num1, num2=None) -> float:
         """
         this function performs the calculation , it receives the operator type like +, - and more ,
         it gets two numbers but if receives one number then the other is None by defult (if the user wants Factorial
