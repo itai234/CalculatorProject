@@ -4,7 +4,7 @@ operatorFactory = OperatorFactory()
 def Check2OperandsOperatorsRightSide(equation: list) -> list:
     Operators = operatorFactory.getTwoOperandsOperators()
     Operators.remove('-')
-    Operators.remove('+')
+    #Operators.remove('+')
     errors = []
     i = 0
     while i < len(equation):
@@ -13,7 +13,10 @@ def Check2OperandsOperatorsRightSide(equation: list) -> list:
                 errors.append(f"Cannot put the operator '{equation[i]}' at the start or end of the equation")
             elif not CheckIfFloat(equation[i-1]) or  not CheckIfFloat(equation[i+1]):
                 if equation[i-1] not in operatorFactory.getClosingParenthesis() and equation[i+1] not in operatorFactory.getOpeningParenthesis():
-                     errors.append(f"Operator '{equation[i]}' must be surrounded by valid operands (numbers) or parenthesis")
+                     if equation[i] == '+':
+                         pass
+                     else:
+                         errors.append(f"Operator '{equation[i]}' must be surrounded by valid operands (numbers) or parenthesis")
         i += 1
     return errors
 
