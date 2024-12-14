@@ -52,7 +52,8 @@ class OperatorFactory:
             '@': 5,
             '~': 6,
             '!': 6,
-            '#': 6
+            '#': 6,
+            'Unary':2.5
         }
 
     def Operation(self, operatorType, num1, num2=None):
@@ -85,7 +86,6 @@ class OperatorFactory:
         return list("#~!")
     def getPriority(self,Operator:str)->int:
         return self._Priorities.get(Operator)
-
     def getSide(self, operator: str) -> str:
         operator_class = self._operators.get(operator)
         if operator_class is None:

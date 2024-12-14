@@ -14,22 +14,33 @@ class InfixToPostfix:
         self._PostFixExpression = []
         self._InfixExpression = []
         self._factory = OperatorFactory()
+        self._prev = None
 
     def setExpression(self, InfixExpression: list):
-        self._stack = []
-        self._PostFixExpression = []
+        self._reset()
         self._InfixExpression = InfixExpression
 
+    def _reset(self):
+        self._stack = []
+        self._PostFixExpression = []
+        self._prev = None
+
     def convert(self):
+        i = 0
         for element in self._InfixExpression:
-            if self.isOperand(element):
+            self._prev = i-1
+            if self.checkIfsOperand(element):
                 self.handleOperand(element)
             elif self.checkIfOperator(element):
-                self.handleOperator(element)
+                if element == '-':
+                    self.handleMinus()
+                else:
+                    self.handleOperator(element)
             elif element in self._factory.getOpeningParenthesis():
                 self.handleOpeningParenthesis()
             elif element in self._factory.getClosingParenthesis():
                 self.handleClosingParenthesis()
+            i+=1
         self.clearRemainingOperators()
 
     def handleOperand(self, element):
@@ -57,7 +68,23 @@ class InfixToPostfix:
     def checkIfOperator(self, element) -> bool:
         return element in self._factory.getOperators()
 
-    def isOperand(self, element: str) -> bool:
+    def handleMinus(self):
+        if self.checkBinaryMinus():
+            self.handleOperator('-')
+        else:
+            while (self._stack and self._stack[-1] != (self._factory.getOpeningParenthesis()[0]) and
+                   self._factory.getPriority(self._stack[-1]) >= self._factory.getPriority('Unary')):
+                self._PostFixExpression.append(self._stack.pop())
+            self._stack.append('Unary')
+
+    def checkBinaryMinus(self):
+        if self._prev >= 0 and (self.checkIfsOperand(self._InfixExpression[self._prev]) or self._InfixExpression[self._prev] in  self._factory.getClosingParenthesis()  ):
+            return True
+        return False
+
+    def checkIfsOperand(self, element: str) -> bool:
+        if element == '-':
+            return False
         valid_chars = self._factory.getNumbers() + self._factory.getFloatingPoint() + ['-']
         return all(char in valid_chars for char in element)
 
