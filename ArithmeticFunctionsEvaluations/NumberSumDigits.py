@@ -14,12 +14,10 @@ class NumberSumDigits(Operator):
         num_str = str(num1)
         if not num_str.isdigit():
             raise ValueError("Invalid input for this action")
-        while len(num_str) > 1:
-            sum_digits = 0
-            for x in num_str:
-                sum_digits += int(x)
-            num_str = str(sum_digits)
-        return int(num_str)
+        sum_digits = 0
+        for x in num_str:
+            sum_digits += int(x)
+        return int(sum_digits)
 
     def getSide(self) -> str:
         return "right"
