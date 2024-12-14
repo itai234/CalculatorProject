@@ -1,4 +1,4 @@
-from ArithmeticFunctionsEvaluations.OperatorFactory import OperatorFactory
+from ArithmeticFunctionsEvaluations.OperatorFactory import *
 
 operatorFactory = OperatorFactory()
 
