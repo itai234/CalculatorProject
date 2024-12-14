@@ -110,28 +110,25 @@ def Check2OperandsOperatorsRightSide(equation: list) -> list:
         i += 1
     return errors
 
-def checkForMissingParenthesis(equation:list)->list :
+def checkForMissingParenthesis(equation: list) -> list:
     """
-    :param equation: gets the equation
-    :return: checks if the equation is allowed with the right amout of parenthesis and if they are put right.
+    Checks for balanced and correctly matched parentheses in the equation.
+    :param equation: The input equation as a list of tokens.
+    :return: A list of error messages.
     """
     OpeningParenthesis = operatorFactory.getOpeningParenthesis()
     ClosingParenthesis = operatorFactory.getClosingParenthesis()
     pairs = operatorFactory.getParenthesisPairs()
-    errors = []
-    stack = []
-    for element in equation:
+    stack, errors = [], []
+    for i, element in enumerate(equation):
         if element in OpeningParenthesis:
             stack.append(element)
-        if element in ClosingParenthesis:
-            if len(stack) == 0 :
-                errors.append(f"Invalid connection of Parenthesis :  {element}")
-            else:
-                poped = stack.pop()
-                if pairs.get(poped) != element:
-                     errors.append(f"Invalid connection of Parenthesis : {poped} , {element}")
-    if len(stack)>0:
-        errors.append("The Parenthesis are not Equally split in the equation")
+        elif element in ClosingParenthesis:
+            if not stack:
+                errors.append(f"Unmatched closing '{element}' at position {i}.")
+            elif pairs[stack.pop()] != element:
+                errors.append(f"Mismatched parenthesis at position {i}.")
+    if stack:
+        errors.append("Unmatched opening parentheses remain.")
+
     return errors
-
-

@@ -69,18 +69,23 @@ class InfixToPostfix:
         return element in self._factory.getOperators()
 
     def handleMinus(self):
-        if self.checkBinaryMinus():
-            self.handleOperator('-')
-        else:
-            while (self._stack and self._stack[-1] != (self._factory.getOpeningParenthesis()[0]) and
+        if self.checkUnaryMinus():
+            while (self._stack and self._stack[-1] != self._factory.getOpeningParenthesis()[0] and
                    self._factory.getPriority(self._stack[-1]) >= self._factory.getPriority('Unary')):
                 self._PostFixExpression.append(self._stack.pop())
             self._stack.append('Unary')
+        else:
+            self.handleOperator('-')
 
-    def checkBinaryMinus(self):
-        if self._prev >= 0 and (self.checkIfsOperand(self._InfixExpression[self._prev]) or self._InfixExpression[self._prev] in  self._factory.getClosingParenthesis()  ):
-            return True
-        return False
+    def checkUnaryMinus(self):
+        operators = set(OperatorFactory().getOperators())
+        operators.remove('!')
+        operators.remove('#')
+        return (
+                self._prev < 0 or  # At the start of the expression
+                self._InfixExpression[self._prev] in operators or
+                self._InfixExpression[self._prev] in self._factory.getOpeningParenthesis()
+        )
 
     def checkIfsOperand(self, element: str) -> bool:
         if element == '-':
