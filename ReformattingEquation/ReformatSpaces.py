@@ -1,3 +1,3 @@
 
 def FixSpacesInEquation(equation:str) -> str :
-    return equation.replace(" ","")
+    return equation.replace(" ", "").replace("\t", "").replace("\n", "")
