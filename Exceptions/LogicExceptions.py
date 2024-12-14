@@ -35,21 +35,18 @@ def Check1OperandsOperators(equation: list) -> list:
             temp = equation[i]
             if i == 0 :
                 errors.append(f"You cant put {temp} at the start")
-            if  CheckIfFloat(equation[i-1])!= True  or  equation[i-1] not in RightSideOperators:
+            if  CheckIfFloat(equation[i-1]) == False and  equation[i-1] not in RightSideOperators:
                 errors.append(f"You can't put '{temp}' after '{equation[i - 1]} or before nothing")
         i += 1
     return errors
 
 
 def CheckIfFloat(word:str)->bool:
-    list = operatorFactory.getNumbers()
-    list.extend(operatorFactory.getFloatingPoint())
-    list.append('-')
-    list.append('+')
-    for x in word :
-        if  not (x  in list):
-            return False
-    return True
+    valid_chars = operatorFactory.getNumbers() + operatorFactory.getFloatingPoint() + ['-']
+    if word == '-':
+        return False
+    return all(char in valid_chars for char in word)
+
 
 def CheckUnaryMinuses(equation:list) -> list :
     """

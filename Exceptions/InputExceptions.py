@@ -67,5 +67,5 @@ def checkEndOfEquation(equation:list)->list:
     errors =[]
 
     if equation[-1] in "+-":
-        errors.append(f"Cannot End The Equation With -{equation[-1]}")
+        errors.append(f"Cannot End The Equation With {equation[-1]}")
     return errors
