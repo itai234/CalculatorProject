@@ -1,3 +1,5 @@
+from distutils.command.check import check
+
 from ArithmeticFunctionsEvaluations.OperatorFactory import *
 operatorFactory = OperatorFactory()
 
@@ -50,6 +52,26 @@ def CheckIfFloat(word:str)->bool:
         return False
     return all(char in valid_chars for char in word)
 
+def checkForInvalidFloatingPoints(equation: list) -> list:
+    """
+    Checks for invalid floating-point numbers in the equation
+    :param equation: The input equation as the equation
+    :return: errors if there are
+    """
+    errors = []
+    i = 0
+    while i < len(equation):
+        element = equation[i]
+        if CheckIfFloat(element) or element == '.':
+            num_str = ''
+            while i < len(equation) and (CheckIfFloat(equation[i]) or equation[i] == '.'):
+                num_str += equation[i]
+                i += 1
+            if num_str.count('.') > 1:
+                errors.append(f"Invalid float detected: '{num_str}'")
+        else:
+            i += 1
+    return errors
 
 def CheckUnaryMinuses(equation:list) -> list :
     """

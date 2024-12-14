@@ -14,6 +14,7 @@ def ValidateEquation(equation: list) -> None:
     errors.extend(Check2OperandsOperatorsRightSide(equation))
     errors.extend(checkForMissingParenthesis(equation))
     errors.extend(checkEndOfEquation(equation))
+    errors.extend(checkForInvalidFloatingPoints(equation))
     if errors:
         raise EquationValidationError(errors)
 
