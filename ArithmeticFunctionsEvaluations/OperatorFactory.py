@@ -1,4 +1,4 @@
-
+from ArithmeticFunctionsEvaluations.NumberUnaryMinus import NumberUnaryMinus
 from ArithmeticFunctionsEvaluations.NumbersAvg import NumbersAvg
 from ArithmeticFunctionsEvaluations.NumbersDivision import NumbersDivision
 from ArithmeticFunctionsEvaluations.NumberNeg import NumberNeg
@@ -38,7 +38,8 @@ class OperatorFactory:
             '@': NumbersAvg,
             '~': NumberNeg,
             '!': NumberFactorial,
-            '#': NumberSumDigits
+            '#': NumberSumDigits,
+            'Unary':NumberUnaryMinus
         }
         self._Priorities = {
             '+': 1,
