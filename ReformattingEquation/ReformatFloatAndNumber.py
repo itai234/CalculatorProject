@@ -1,4 +1,6 @@
+from multiprocessing.managers import Value
 
+from Exceptions.LogicExceptions import  CheckIfFloat
 
 def FixLongNumbers(equation: list) ->list:
     """
@@ -26,6 +28,8 @@ def FixFloatNumbers(equation:list,precision : int = 100) -> list :
     i = 0
     while i < len(equation) - 1:
         if equation[i].isdigit() and equation[i + 1] == '.':
+            if not CheckIfFloat(equation[i]) or not CheckIfFloat(equation[i+2]):
+                raise ValueError("Cannot Put Multiple floating points in one number/ missing parts of the float.")
             number = equation[i] + equation[i + 1] + equation[i + 2]
             del equation[i + 1]
             del equation[i + 1]

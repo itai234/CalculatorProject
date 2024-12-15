@@ -55,6 +55,8 @@ def CheckIfFloat(word:str)->bool:
     valid_chars = operatorFactory.getNumbers() + operatorFactory.getFloatingPoint() + ['-']
     if word == '-':
         return False
+    if word == '.':
+        return False
     return all(char in valid_chars for char in word)
 
 def checkForInvalidFloatingPoints(equation: list) -> list:
