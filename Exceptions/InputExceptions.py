@@ -46,33 +46,49 @@ def checkForMissingParenthesis(equation: list) -> list:
     :param equation: The input equation as a list of tokens.
     :return: A list of error messages.
     """
+    # Get operator and parenthesis details from the factory
     OpeningParenthesis = operatorFactory.getOpeningParenthesis()
     ClosingParenthesis = operatorFactory.getClosingParenthesis()
-    operatorsWithoutRightSide = operatorFactory.getOperators()
+    operatorsWithoutRightSide = operatorFactory.getOperators().copy()
     operatorsWithoutRightSide.remove("#")
     operatorsWithoutRightSide.remove("!")
-    operatorsWithoutLeftSide = operatorFactory.getOperators()
+    operatorsWithoutRightSide.extend(OpeningParenthesis)
+    operatorsWithoutLeftSide = operatorFactory.getOperators().copy()
     operatorsWithoutLeftSide.remove("~")
+    operatorsWithoutLeftSide.extend(ClosingParenthesis)
     pairs = operatorFactory.getParenthesisPairs()
-    stack, errors = [], []
+    stack = []
+    errors = []
+
     for i, element in enumerate(equation):
-        if equation[i] in OpeningParenthesis and equation[i+1] in ClosingParenthesis:
-            errors.append(f"empty Brackets at position {i},{i+1}.")
+        # Check for empty brackets ()
+        if element in OpeningParenthesis and i + 1 < len(equation) and equation[i + 1] in ClosingParenthesis:
+            errors.append(f"Empty brackets at position {i}, {i + 1}.")
+
+        # Check for opening parenthesis validity
         if element in OpeningParenthesis:
-            if i!=0 and equation[i-1] not in operatorsWithoutRightSide:
-                errors.append(f"Illegal Parenthesis in position{i}")
-            stack.append(element)
+            if i > 0 and equation[i - 1] not in operatorsWithoutRightSide:
+                errors.append(f"Illegal opening parenthesis at position {i}.")
+            stack.append((element, i))  # Push the opening parenthesis and its position onto the stack
+
+        # Check for closing parenthesis validity
         elif element in ClosingParenthesis:
-            if i+1!=len(equation) and equation[i+1] not in operatorsWithoutLeftSide:
-                errors.append(f"Illegal Parenthesis in position {i}")
+            if i + 1 < len(equation) and equation[i + 1] not in operatorsWithoutLeftSide:
+                errors.append(f"Illegal closing parenthesis at position {i}.")
             if not stack:
                 errors.append(f"Unmatched closing '{element}' at position {i}.")
-            elif pairs[stack.pop()] != element:
-                errors.append(f"Mismatched parenthesis at position {i}.")
-    if stack:
-        errors.append("Unmatched opening parentheses remain.")
+            else:
+                last_open, open_pos = stack.pop()
+                if pairs[last_open] != element:
+                    errors.append(f"Mismatched parenthesis: '{last_open}' at position {open_pos} "
+                                  f"and '{element}' at position {i}.")
+
+    while stack:
+        unmatched_open, pos = stack.pop()
+        errors.append(f"Unmatched opening '{unmatched_open}' at position {pos}.")
 
     return errors
+
 
 def checkEndOfEquation(equation:list)->list:
     errors =[]
