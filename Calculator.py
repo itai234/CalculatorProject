@@ -4,7 +4,6 @@ from ReformattingEquation.Reformater import Reformat
 from Evaluation.TransformInfixToPostFix import InfixToPostfix
 from Timer import evaluate_with_timeout, TimeoutError
 
-
 def main():
     InfixConverter = InfixToPostfix()
     print("\n" + "="*50)
@@ -26,9 +25,11 @@ def main():
 
             start_time = time.time()
             equation = list(Reformat(equation))
+            print(equation)
             InfixConverter.setExpression(equation)
             InfixConverter.convert()
             PostFix = InfixConverter.getPostFix()
+            print(PostFix)
             evaluator = EvaluationOfPostFix()
             evaluator.setExpression(PostFix)
 

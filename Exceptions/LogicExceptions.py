@@ -1,6 +1,8 @@
 from distutils.command.check import check
 
 from ArithmeticFunctionsEvaluations.OperatorFactory import *
+from TestCode.TestArithmeticFunctions import factory
+
 operatorFactory = OperatorFactory()
 
 def Check2OperandsOperatorsRightSide(equation: list) -> list:
@@ -41,7 +43,10 @@ def Check1OperandsOperators(equation: list) -> list:
             if i == 0 :
                 errors.append(f"You cant put {temp} at the start")
             if  CheckIfFloat(equation[i-1]) == False and  equation[i-1] not in RightSideOperators:
-                errors.append(f"You can't put '{temp}' after '{equation[i - 1]} or before nothing")
+                if equation[i-1] in factory.getClosingParenthesis():
+                    pass
+                else:
+                    errors.append(f"You can't put '{temp}' after '{equation[i - 1]} or before nothing")
         i += 1
     return errors
 
