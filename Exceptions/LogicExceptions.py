@@ -33,6 +33,8 @@ def Check1OperandsOperators(equation: list) -> list:
     while i < len(equation):
         if equation[i] in LeftSideOperators:
             temp = equation[i]
+            if i-1 >=0 and (CheckIfFloat(equation[i-1]) or equation[i-1] in RightSideOperators):
+                errors.append(f"You cant put {temp} at this position , not enough operators")
             i += 1
             while i < len(equation) and equation[i] == '-':
                 i += 1
@@ -40,6 +42,8 @@ def Check1OperandsOperators(equation: list) -> list:
                 errors.append(f"You can't put '{temp}' before '{equation[i]}'")
         elif equation[i] in RightSideOperators:
             temp = equation[i]
+            if i+1 < len(equation) and (CheckIfFloat(equation[i+1]) or equation[i+1] in LeftSideOperators):
+                errors.append(f"You cant put {temp} at this position , not enough operators")
             if i == 0 :
                 errors.append(f"You cant put {temp} at the start")
             if  CheckIfFloat(equation[i-1]) == False and  equation[i-1] not in RightSideOperators:
@@ -59,12 +63,13 @@ def CheckIfFloat(word:str)->bool:
         return False
     return all(char in valid_chars for char in word)
 
+
 def checkForInvalidFloatingPoints(equation: list) -> list:
-    """
-    Checks for invalid floating-point numbers in the equation
-    :param equation: The input equation as the equation
-    :return: errors if there are
-    """
+    
+   # Checks for invalid floating-point numbers in the equation
+    #:param equation: The input equation as the equation
+    #:return: errors if there are
+    
     errors = []
     i = 0
     while i < len(equation):
@@ -79,6 +84,8 @@ def checkForInvalidFloatingPoints(equation: list) -> list:
         else:
             i += 1
     return errors
+    
+
 
 def CheckUnaryMinuses(equation:list) -> list :
     """

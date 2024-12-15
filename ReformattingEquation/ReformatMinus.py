@@ -1,4 +1,3 @@
-from multiprocessing.managers import Value
 
 import ArithmeticFunctionsEvaluations.OperatorFactory
 from ArithmeticFunctionsEvaluations.OperatorFactory import OperatorFactory

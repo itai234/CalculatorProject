@@ -48,12 +48,23 @@ def checkForMissingParenthesis(equation: list) -> list:
     """
     OpeningParenthesis = operatorFactory.getOpeningParenthesis()
     ClosingParenthesis = operatorFactory.getClosingParenthesis()
+    operatorsWithoutRightSide = operatorFactory.getOperators()
+    operatorsWithoutRightSide.remove("#")
+    operatorsWithoutRightSide.remove("!")
+    operatorsWithoutLeftSide = operatorFactory.getOperators()
+    operatorsWithoutLeftSide.remove("~")
     pairs = operatorFactory.getParenthesisPairs()
     stack, errors = [], []
     for i, element in enumerate(equation):
+        if equation[i] in OpeningParenthesis and equation[i+1] in ClosingParenthesis:
+            errors.append(f"empty Brackets at position {i},{i+1}.")
         if element in OpeningParenthesis:
+            if i!=0 and equation[i-1] not in operatorsWithoutRightSide:
+                errors.append(f"Illegal Parenthesis in position{i}")
             stack.append(element)
         elif element in ClosingParenthesis:
+            if i+1!=len(equation) and equation[i+1] not in operatorsWithoutLeftSide:
+                errors.append(f"Illegal Parenthesis in position {i}")
             if not stack:
                 errors.append(f"Unmatched closing '{element}' at position {i}.")
             elif pairs[stack.pop()] != element:
