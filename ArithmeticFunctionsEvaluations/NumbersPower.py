@@ -10,7 +10,7 @@ class NumbersPower(Operator):
         :param num2: second number
         :return: first number power by the second number
         """
-        if num1<0 and num2<1:
+        if num1 < 0 and num2 < 1:
             raise ValueError("Cannot Perform sqrt on a negative value")
         if num1 == 0 and num2 <= 0:
             raise ValueError("0 raised to a non-positive power is undefined.")
@@ -25,8 +25,8 @@ class NumbersPower(Operator):
         except OverflowError:
             raise Exception("Result too large to compute.")
 
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "Middle"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("^")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("^")

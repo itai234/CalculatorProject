@@ -1,11 +1,8 @@
-
 import ArithmeticFunctionsEvaluations.OperatorFactory
 from ArithmeticFunctionsEvaluations.OperatorFactory import OperatorFactory
 from Exceptions.InputExceptions import operatorFactory
 
 factory = OperatorFactory()
-
-
 
 
 def handle_unary_minus(equation: list) -> list:
@@ -16,13 +13,16 @@ def handle_unary_minus(equation: list) -> list:
     :return: The equation with unary minus correctly handled.
     """
     i = 0
-    while i < len(equation)-1:
+    while i < len(equation) - 1:
         # Check for consecutive minuses, e.g., "--" case
-        if equation[i] == '-' and i + 1 < len(equation) and equation[i + 1] == '-' and i == 0:
+        if equation[i] == factory.get_minus() and i + 1 < len(equation) and equation[i + 1] == factory.get_minus() and i == 0:
             del equation[i]
             del equation[i]
-            if equation[i] not in factory.getOpeningParenthesis() and not checkIfAllLegalChars(equation[i]) and equation[i]!='-':
-                raise ValueError("The Expression Is Invalid because Unary minus can only be besides brackets,numbers or other minuses")
+            if equation[i] not in factory.get_opening_parenthesis() and not check_if_all_legal_chars(equation[i]) and \
+                    equation[i] != '-':
+                raise ValueError(
+                    "The Expression Is Invalid because Unary minus can only be besides brackets,numbers or other "
+                    "minuses")
             continue
 
         i += 1
@@ -32,23 +32,27 @@ def handle_unary_minus(equation: list) -> list:
 def handle_sign_minus(equation: list) -> list:
     """
     """
-    operators = factory.getOperators()
-    operators.remove('!')
-    operators.remove('#')
-    #operators.remove('-')
+    operators = factory.get_operators()
+    operators = list(set(operators) - set(factory.get_one_operands_operators_right_side()))
     i = 0
     while i < len(equation) - 1:
-        if equation[i] in operators and i + 1 < len(equation) and equation[i + 1] == '-' and (i!=0 or equation!='-'):
-            IsMinus = False
-            while equation[i + 1 ] == '-':
-                IsMinus= not IsMinus
-                del equation[i+1]
-            if checkIfAllLegalChars(equation[i+1]) or equation[i+1] in operatorFactory.getOpeningParenthesis():
-               if IsMinus:
-                   if checkIfAllLegalChars(equation[i+1]) :
-                       equation[i + 1] = '-' + equation[i + 1]
-                   if equation[i+1] in operatorFactory.getOpeningParenthesis():
-                        equation = InsertMinusAndParenthesis(equation,i+1)
+        if equation[i] in operators and i + 1 < len(equation) and equation[i + 1] == factory.get_minus() and (
+                i != 0 or equation != factory.get_minus()):
+            is_minus = False
+
+            if i + 1 >= len(equation):
+                raise ValueError("Wrong placement for minus in the end.")
+            while equation[i + 1] == factory.get_minus():
+                is_minus = not is_minus
+                del equation[i + 1]
+                if i + 1 >= len(equation):
+                    raise ValueError("Wrong placement for minus in the end.")
+            if check_if_all_legal_chars(equation[i + 1]) or equation[i + 1] in operatorFactory.get_opening_parenthesis()[0]:
+                if is_minus:
+                    if check_if_all_legal_chars(equation[i + 1]):
+                        equation[i + 1] = factory.get_minus() + equation[i + 1]
+                    if equation[i + 1] in operatorFactory.get_opening_parenthesis()[0]:
+                        equation = insert_minus_and_parenthesis(equation, i + 1)
             else:
                 raise ValueError("cannot put minus sign on non numbers")
         else:
@@ -56,34 +60,29 @@ def handle_sign_minus(equation: list) -> list:
     return equation
 
 
-def checkIfAllLegalChars(equation: str) -> bool:
+def check_if_all_legal_chars(equation: str) -> bool:
     """
     Validates if all characters in the equation are legal for operands.
 
     :param equation: A string representing part of the equation.
     :return: True if all characters are legal, False otherwise.
     """
-    legalChars = factory.getNumbers() + factory.getFloatingPoint() + ['-']
-    return all(char in legalChars for char in equation)
+    legal_chars = factory.get_numbers() + factory.get_floating_point() + list(factory.get_minus())
+    return all(char in legal_chars for char in equation)
 
 
-
-def InsertMinusAndParenthesis(equation:list,index:int) ->list:
-
-    equation.insert(index,operatorFactory.getOpeningParenthesis()[0])
-    equation.insert(index+1, '-')
+def insert_minus_and_parenthesis(equation: list, index: int) -> list:
+    equation.insert(index, operatorFactory.get_opening_parenthesis()[0])
+    equation.insert(index + 1, factory.get_minus())
     count = 0
-    index+=2
-    while index< len(equation):
-        if(equation[index] in operatorFactory.getOpeningParenthesis()):
-            count+=1
-        if(equation[index] in operatorFactory.getClosingParenthesis()):
-            count-=1
-        if count == 0 :
-            equation.insert(index+1,operatorFactory.getClosingParenthesis()[0])
+    index += 2
+    while index < len(equation):
+        if equation[index] in operatorFactory.get_opening_parenthesis()[0]:
+            count += 1
+        if equation[index] in operatorFactory.get_closing_parenthesis()[0]:
+            count -= 1
+        if count == 0:
+            equation.insert(index + 1, operatorFactory.get_closing_parenthesis()[0])
             return equation
-        index+=1
+        index += 1
     return equation
-
-
-

@@ -1,4 +1,3 @@
-from multiprocessing.managers import Value
 
 from ArithmeticFunctionsEvaluations.Operator import Operator
 from ArithmeticFunctionsEvaluations.OperatorFactory import *
@@ -30,9 +29,9 @@ class NumberFactorial(Operator):
                 raise Exception("Result too large to compute factorial for this number.")
         return result
 
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "right"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("!")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("!")
 

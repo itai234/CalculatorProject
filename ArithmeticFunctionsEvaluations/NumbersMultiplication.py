@@ -20,8 +20,8 @@ class NumbersMultiplication(Operator):
         except Exception as e:
             raise Exception(f"Error: {e}")
 
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "Middle"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("*")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("*")

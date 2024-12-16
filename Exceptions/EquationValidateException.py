@@ -5,6 +5,7 @@ class EquationValidationError(Exception):
         """
         :param the errors is the list of all the illegal actions in the equation
         """
-        self.errors = errors
-        message = "\n".join(errors)
+
+        self._errors = list(dict.fromkeys(errors))
+        message = "\n".join(self._errors)
         super().__init__(f"Evaluation failed, reasons : \n{message}")

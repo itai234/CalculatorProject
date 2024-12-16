@@ -1,9 +1,10 @@
 from Evaluation.EvaluatePostFixExpression import EvaluationOfPostFix
-from ReformattingEquation.Reformater import Reformat
+from ReformattingEquation.Reformater import reformat
 from Evaluation.TransformInfixToPostFix import InfixToPostfix
 
+
 def main():
-    InfixConverter = InfixToPostfix()
+    infix_converter = InfixToPostfix()
     print("\n" + "="*50)
     print("💻  Welcome to My Advanced Calculator! 🧮")
     print("="*50 + "\n")
@@ -20,14 +21,14 @@ def main():
                 print("\nThank you for using the calculator! Goodbye! 👋")
                 exit(0)
 
-            equation = list(Reformat(equation))
+            equation = list(reformat(equation))
             print(equation)
-            InfixConverter.setExpression(equation)
-            InfixConverter.convert()
-            PostFix = InfixConverter.getPostFix()
-            print(PostFix)
+            infix_converter.set_expression(equation)
+            infix_converter.convert()
+            post_fix = infix_converter.get_post_fix()
+            print(post_fix)
             evaluator = EvaluationOfPostFix()
-            evaluator.setExpression(PostFix)
+            evaluator.set_expression(post_fix)
             result = evaluator.evaluate()
             print(f"✅ Result: {result}")
 

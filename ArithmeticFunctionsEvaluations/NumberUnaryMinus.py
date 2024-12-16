@@ -10,8 +10,8 @@ class NumberUnaryMinus(Operator):
         :return: negative for the num1
         """
         return -num1
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "left"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("Unary")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("Unary")

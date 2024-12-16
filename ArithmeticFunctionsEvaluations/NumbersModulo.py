@@ -12,9 +12,9 @@ class NumbersModulo(Operator):
         if num2 == 0:
             raise ZeroDivisionError("You cannot Modulo a number by zero")
         return num1%num2
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "Middle"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("%")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("%")
 

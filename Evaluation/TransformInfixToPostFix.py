@@ -16,9 +16,9 @@ class InfixToPostfix:
         self._factory = OperatorFactory()
         self._prev = None
 
-    def setExpression(self, InfixExpression: list):
+    def set_expression(self, infix_expression: list):
         self._reset()
-        self._InfixExpression = InfixExpression
+        self._InfixExpression = infix_expression
 
     def _reset(self):
         self._stack = []
@@ -29,70 +29,70 @@ class InfixToPostfix:
         i = 0
         for element in self._InfixExpression:
             self._prev = i-1
-            if self.checkIfsOperand(element):
-                self.handleOperand(element)
-            elif self.checkIfOperator(element):
+            if self.check_if_operand(element):
+                self.handle_operand(element)
+            elif self.check_if_operator(element):
                 if element == '-':
-                    self.handleMinus()
+                    self.handle_minus()
                 else:
-                    self.handleOperator(element)
-            elif element in self._factory.getOpeningParenthesis():
-                self.handleOpeningParenthesis()
-            elif element in self._factory.getClosingParenthesis():
-                self.handleClosingParenthesis()
-            i+=1
-        self.clearRemainingOperators()
+                    self.handle_operator(element)
+            elif element in self._factory.get_opening_parenthesis():
+                self.handle_opening_parenthesis()
+            elif element in self._factory.get_closing_parenthesis():
+                self.handle_closing_parenthesis()
+            i += 1
+        self.clear_remaining_operators()
 
-    def handleOperand(self, element):
+    def handle_operand(self, element):
         self._PostFixExpression.append(element)
 
-    def handleOperator(self, element):
-        while (self._stack and self._stack[-1] != (self._factory.getOpeningParenthesis()[0]) and
-               self._factory.getPriority(self._stack[-1]) >= self._factory.getPriority(element)):
+    def handle_operator(self, element):
+        while (self._stack and self._stack[-1] != (self._factory.get_opening_parenthesis()[0]) and
+               self._factory.get_priority(self._stack[-1]) >= self._factory.get_priority(element)):
             self._PostFixExpression.append(self._stack.pop())
         self._stack.append(element)
 
-    def handleOpeningParenthesis(self):
-        self._stack.append(self._factory.getOpeningParenthesis()[0])
+    def handle_opening_parenthesis(self):
+        self._stack.append(self._factory.get_opening_parenthesis()[0])
 
-    def handleClosingParenthesis(self):
-        while self._stack and self._stack[-1] != self._factory.getOpeningParenthesis()[0]:
+    def handle_closing_parenthesis(self):
+        while self._stack and self._stack[-1] != self._factory.get_opening_parenthesis()[0]:
             self._PostFixExpression.append(self._stack.pop())
-        if self._stack and self._stack[-1] == self._factory.getOpeningParenthesis()[0]:
+        if self._stack and self._stack[-1] == self._factory.get_opening_parenthesis()[0]:
             self._stack.pop()
 
-    def clearRemainingOperators(self):
+    def clear_remaining_operators(self):
         while self._stack:
             self._PostFixExpression.append(self._stack.pop())
 
-    def checkIfOperator(self, element) -> bool:
-        return element in self._factory.getOperators()
+    def check_if_operator(self, element) -> bool:
+        return element in self._factory.get_operators()
 
-    def handleMinus(self):
-        if self.checkUnaryMinus():
-            while (self._stack and self._stack[-1] != self._factory.getOpeningParenthesis()[0] and
-                   self._factory.getPriority(self._stack[-1]) >= self._factory.getPriority('Unary')):
+    def handle_minus(self):
+        if self.check_unary_minus():
+            while (self._stack and self._stack[-1] != self._factory.get_opening_parenthesis()[0] and
+                   self._factory.get_priority(self._stack[-1]) >= self._factory.get_priority('Unary')):
                 self._PostFixExpression.append(self._stack.pop())
             self._stack.append('Unary')
         else:
-            self.handleOperator('-')
+            self.handle_operator('-')
 
-    def checkUnaryMinus(self):
-        operators = set(OperatorFactory().getOperators())
+    def check_unary_minus(self):
+        operators = set(OperatorFactory().get_operators())
         operators.remove('!')
         operators.remove('#')
         return (
                 self._prev < 0 or  # At the start of the expression
                 self._InfixExpression[self._prev] in operators or
-                self._InfixExpression[self._prev] in self._factory.getOpeningParenthesis()
+                self._InfixExpression[self._prev] in self._factory.get_opening_parenthesis()
         )
 
-    def checkIfsOperand(self, element: str) -> bool:
+    def check_if_operand(self, element: str) -> bool:
         if element == '-':
             return False
-        valid_chars = self._factory.getNumbers() + self._factory.getFloatingPoint() + ['-']
+        valid_chars = self._factory.get_numbers() + self._factory.get_floating_point() + ['-']
         return all(char in valid_chars for char in element)
 
-    def getPostFix(self):
+    def get_post_fix(self):
         return self._PostFixExpression
 

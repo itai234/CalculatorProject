@@ -12,8 +12,8 @@ class NumbersMaximum(Operator):
         if num1 > num2:
             return num1
         return num2
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "Middle"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("$")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("$")

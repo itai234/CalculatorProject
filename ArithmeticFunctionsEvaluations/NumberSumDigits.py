@@ -19,9 +19,9 @@ class NumberSumDigits(Operator):
             sum_digits += int(x)
         return int(sum_digits)
 
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "right"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("#")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("#")
 

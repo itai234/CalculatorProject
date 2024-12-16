@@ -27,8 +27,8 @@ class NumbersDivision(Operator):
             raise Exception(f"An unexpected error occurred: {e}")
 
 
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "Middle"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("/")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("/")

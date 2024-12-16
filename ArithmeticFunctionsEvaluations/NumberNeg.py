@@ -11,8 +11,8 @@ class NumberNeg(Operator):
         return -num1
 
 
-    def getSide(self) -> str:
+    def get_side(self) -> str:
         return "left"
 
-    def getPriority(self) -> int:
-        return OperatorFactory().getPriority("~")
+    def get_priority(self) -> int:
+        return OperatorFactory().get_priority("~")

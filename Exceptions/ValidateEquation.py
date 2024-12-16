@@ -1,20 +1,22 @@
-from Exceptions.InputExceptions import  *
+from Exceptions.InputExceptions import *
 from Exceptions.EquationValidateException import *
 from Exceptions.LogicExceptions import *
-def ValidateEquation(equation: list) -> None:
+
+
+def validate_equation(equation: list) -> None:
     """
     gathers a list of the exceptions in the equation and sends it to the customer exception class
     :param
     """
     errors = []
-    errors.extend(IsValidLetters(equation))
-    errors.extend(IsValidOperators(equation))
-    errors.extend(CheckUnaryMinuses(equation))
-    errors.extend(Check1OperandsOperators(equation))
-    errors.extend(Check2OperandsOperatorsRightSide(equation))
-    errors.extend(checkForMissingParenthesis(equation))
-    errors.extend(checkEndOfEquation(equation))
-    errors.extend(checkForInvalidFloatingPoints(equation))
+    errors.extend(is_valid_letters(equation))
+    errors.extend(is_valid_operators(equation))
+    errors.extend(check_unary_minuses(equation))
+    errors.extend(check_1_operands_operators(equation))
+    errors.extend(check_2_operands_operators_right_side(equation))
+    errors.extend(check_for_missing_parenthesis(equation))
+    errors.extend(check_end_of_equation(equation))
+    errors.extend(check_for_invalid_floating_points(equation))
     if errors:
         raise EquationValidationError(errors)
 
