@@ -17,11 +17,18 @@ class NumberFactorial(Operator):
                 raise ValueError("Cannot perform Factorial on non-integer float numbers")
         elif not isinstance(num1, int):
             raise ValueError("Factorial is only for integers")
-        result = 1
-        for i in range(1, int(num1+ 1)):
-            result *= i
-        return result
 
+        result = 1
+        iterationLimit = 10 ** 6
+        iterationCounter = 0
+        for i in range(1 , num1 + 1):
+            result *= i
+            iterationCounter += 1
+            if iterationCounter > iterationLimit:
+                raise Exception("Cannot perform factorial on very large numbers. Computation taking too long.")
+            if result > 10 ** 10000:
+                raise Exception("Result too large to compute factorial for this number.")
+        return result
 
     def getSide(self) -> str:
         return "right"

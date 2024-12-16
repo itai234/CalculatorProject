@@ -1,6 +1,8 @@
 
 import ArithmeticFunctionsEvaluations.OperatorFactory
 from ArithmeticFunctionsEvaluations.OperatorFactory import OperatorFactory
+from Exceptions.InputExceptions import operatorFactory
+
 factory = OperatorFactory()
 
 
@@ -41,9 +43,12 @@ def handle_sign_minus(equation: list) -> list:
             while equation[i + 1 ] == '-':
                 IsMinus= not IsMinus
                 del equation[i+1]
-            if checkIfAllLegalChars(equation[i+1]):
+            if checkIfAllLegalChars(equation[i+1]) or equation[i+1] in operatorFactory.getOpeningParenthesis():
                if IsMinus:
-                   equation[i+1] = '-'+equation[i+1]
+                   if checkIfAllLegalChars(equation[i+1]) :
+                       equation[i + 1] = '-' + equation[i + 1]
+                   if equation[i+1] in operatorFactory.getOpeningParenthesis():
+                        equation = InsertMinusAndParenthesis(equation,i+1)
             else:
                 raise ValueError("cannot put minus sign on non numbers")
         else:
@@ -63,6 +68,22 @@ def checkIfAllLegalChars(equation: str) -> bool:
 
 
 
+def InsertMinusAndParenthesis(equation:list,index:int) ->list:
+
+    equation.insert(index,operatorFactory.getOpeningParenthesis()[0])
+    equation.insert(index+1, '-')
+    count = 0
+    index+=2
+    while index< len(equation):
+        if(equation[index] in operatorFactory.getOpeningParenthesis()):
+            count+=1
+        if(equation[index] in operatorFactory.getClosingParenthesis()):
+            count-=1
+        if count == 0 :
+            equation.insert(index+1,operatorFactory.getClosingParenthesis()[0])
+            return equation
+        index+=1
+    return equation
 
 
 

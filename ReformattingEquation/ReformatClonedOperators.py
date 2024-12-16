@@ -10,6 +10,9 @@ def FixClonedOperators(equation:list) -> list :
     i = 0
     allowedPlus = OperatorFactory().getClosingParenthesis()
     allowedPlus.extend(OperatorFactory().getNumbers())
+    rightOperators  =  OperatorFactory().getOneOperandsOperators()
+    rightOperators.remove("~")
+    allowedPlus.extend(rightOperators)
     while i < len(equation) - 1:
         if equation[i] == '+':
             if i==0 or equation[i-1] not in allowedPlus:

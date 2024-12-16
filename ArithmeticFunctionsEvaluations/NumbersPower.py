@@ -12,7 +12,19 @@ class NumbersPower(Operator):
         """
         if num1<0 and num2<1:
             raise ValueError("Cannot Perform sqrt on a negative value")
-        return pow(num1, num2)
+        if num1 == 0 and num2 <= 0:
+            raise ValueError("0 raised to a non-positive power is undefined.")
+        try:
+            result = pow(num1, num2)
+            if result > 10 ** 10000:
+                raise OverflowError("Result too large to compute.")
+            if result < 10 ** -10:
+                return 0
+
+            return result
+        except OverflowError:
+            raise Exception("Result too large to compute.")
+
     def getSide(self) -> str:
         return "Middle"
 

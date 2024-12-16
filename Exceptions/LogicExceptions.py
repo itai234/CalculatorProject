@@ -9,6 +9,8 @@ def Check2OperandsOperatorsRightSide(equation: list) -> list:
     Operators = operatorFactory.getTwoOperandsOperators()
     Operators.remove('-')
     #Operators.remove('+')
+    rightSideOperators = operatorFactory.getOneOperandsOperators()
+    rightSideOperators.remove("~")
     errors = []
     i = 0
     while i < len(equation):
@@ -16,7 +18,7 @@ def Check2OperandsOperatorsRightSide(equation: list) -> list:
             if i == 0 or i == len(equation) - 1:
                 errors.append(f"Cannot put the operator '{equation[i]}' at the start or end of the equation")
             elif not CheckIfFloat(equation[i-1]) or  not CheckIfFloat(equation[i+1]):
-                if equation[i-1] not in operatorFactory.getClosingParenthesis() and equation[i+1] not in operatorFactory.getOpeningParenthesis():
+                if equation[i-1] not in operatorFactory.getClosingParenthesis() and equation[i+1] not in operatorFactory.getOpeningParenthesis() and equation[i-1] not in rightSideOperators:
                      if equation[i] == '+':
                          pass
                      else:
@@ -38,7 +40,7 @@ def Check1OperandsOperators(equation: list) -> list:
             i += 1
             while i < len(equation) and equation[i] == '-':
                 i += 1
-            if i >= len(equation) or not CheckIfFloat(equation[i]):
+            if i >= len(equation) or not (CheckIfFloat(equation[i]) or operatorFactory.getOpeningParenthesis()):
                 errors.append(f"You can't put '{temp}' before '{equation[i]}'")
         elif equation[i] in RightSideOperators:
             temp = equation[i]

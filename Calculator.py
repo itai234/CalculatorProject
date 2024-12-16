@@ -31,8 +31,6 @@ def main():
             result = evaluator.evaluate()
             print(f"✅ Result: {result}")
 
-        except TimeoutError as te:
-            print(f"⏰ Timeout: {te}")
         except Exception as e:
             print(f"⚠️ Error: {e}")
             print("Please try again with a valid equation!")
