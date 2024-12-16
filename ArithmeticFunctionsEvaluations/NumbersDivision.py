@@ -26,7 +26,6 @@ class NumbersDivision(Operator):
         except Exception as e:
             raise Exception(f"An unexpected error occurred: {e}")
 
-
     def get_side(self) -> str:
         return "Middle"
 

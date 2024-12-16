@@ -3,7 +3,7 @@ from ArithmeticFunctionsEvaluations.OperatorFactory import *
 
 
 class NumberSumDigits(Operator):
-    def execute(self, num1, num2 = None):
+    def execute(self, num1, num2=None):
         """
         the function returns the sub of the second number from the first
         """

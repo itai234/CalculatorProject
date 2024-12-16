@@ -49,9 +49,3 @@ class EvaluationOfPostFix:
         operand1 = self._stack.pop()
         operand2 = self._stack.pop()
         self._stack.append(self._factory.operation(operator, float(operand2), float(operand1)))
-
-
-
-
-
-

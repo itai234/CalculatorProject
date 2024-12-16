@@ -3,6 +3,7 @@ from ArithmeticFunctionsEvaluations.OperatorFactory import *
 
 
 class NumbersAddition(Operator):
+
     def execute(self, num1, num2):
         """
         the function returns the sum of the two numbers given to it

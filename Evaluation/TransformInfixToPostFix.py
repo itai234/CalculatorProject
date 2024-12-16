@@ -95,4 +95,3 @@ class InfixToPostfix:
 
     def get_post_fix(self):
         return self._PostFixExpression
-

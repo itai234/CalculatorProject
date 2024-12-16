@@ -12,6 +12,7 @@ class NumbersMaximum(Operator):
         if num1 > num2:
             return num1
         return num2
+
     def get_side(self) -> str:
         return "Middle"
 

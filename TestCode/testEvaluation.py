@@ -60,6 +60,7 @@ def test_multiple_unary_minus():
 def test_multiple_unary_minus_with_parentheses():
     assert evaluate_infix("(- - 3) + 2") == -(-3) + 2
 
+
 # Edge Cases
 def test_division_by_zero():
     assert evaluate_infix("10 / 0") == "division by zero"
@@ -318,3 +319,34 @@ def test_final4():
 def test_final5():
     print( evaluate_infix("3~"))
 
+
+
+def test_complex_power():
+       print( evaluate_infix("(2---3!)^((~--3!)@5)"))
+
+def test_complex_precedence_no_parentheses():
+    assert evaluate_infix("3+5*2^2-4/2") == 21
+
+def test_complex_precedence_mix():
+    assert evaluate_infix("3! - ~-10^2 @5*2 + ~4 &9") == -6322.555320336759
+
+def test_tilde_on_factorial_with_average():
+    assert evaluate_infix("~(9!)@3") == -181438.5
+
+def test_tilde_multiple_unary_minus_factorial():
+        print(evaluate_infix("~--3!"))
+
+def test_nested_tilde_with_parentheses():
+    assert evaluate_infix("-(~(10))") == 10
+
+def test_signs_with_tilde():
+    assert evaluate_infix("-~10") == 10
+
+def test_expr_tilde_minus_3_factorial():
+    assert evaluate_infix("~-3!") == 6
+
+def test_expr_minus_minus_tilde_minus_minus_3():
+        print(evaluate_infix("--~--3"))
+
+def test_expr_2_minus_minus_3_factorial():
+       print(evaluate_infix("2 - - 3!"))

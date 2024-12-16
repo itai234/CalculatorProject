@@ -12,6 +12,7 @@ class NumbersMinimum(Operator):
         if num1 > num2:
             return num2
         return num1
+
     def get_side(self) -> str:
         return "Middle"
 

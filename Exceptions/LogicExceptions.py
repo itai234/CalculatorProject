@@ -1,4 +1,3 @@
-from distutils.command.check import check
 
 from ArithmeticFunctionsEvaluations.OperatorFactory import *
 from TestCode.TestArithmeticFunctions import factory
@@ -18,7 +17,7 @@ def check_2_operands_operators_right_side(equation: list) -> list:
             if i == 0 or i == len(equation) - 1:
                 errors.append(f"Cannot put the operator '{equation[i]}' at the start or end of the equation")
             elif not check_if_float(equation[i - 1]) or not check_if_float(equation[i + 1]):
-                if equation[i - 1] not in operatorFactory.get_closing_parenthesis()[0] \
+                if equation[i - 1] not in operatorFactory.get_closing_parenthesis() \
                         and equation[i + 1] \
                         not in operatorFactory.get_opening_parenthesis() \
                         and equation[i - 1] not in right_side_operators:

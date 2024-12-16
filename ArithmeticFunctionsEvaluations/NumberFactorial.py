@@ -1,8 +1,10 @@
 
 from ArithmeticFunctionsEvaluations.Operator import Operator
 from ArithmeticFunctionsEvaluations.OperatorFactory import *
+
+
 class NumberFactorial(Operator):
-    def execute(self, num1 , num2 = None):
+    def execute(self, num1, num2=None):
         """
         :param num: operand
         :return: the factorial of the number given
@@ -18,12 +20,12 @@ class NumberFactorial(Operator):
             raise ValueError("Factorial is only for integers")
 
         result = 1
-        iterationLimit = 10 ** 6
-        iterationCounter = 0
-        for i in range(1 , num1 + 1):
+        iteration_limit = 10 ** 6
+        iteration_counter = 0
+        for i in range(1, num1 + 1):
             result *= i
-            iterationCounter += 1
-            if iterationCounter > iterationLimit:
+            iteration_counter += 1
+            if iteration_counter > iteration_limit:
                 raise Exception("Cannot perform factorial on very large numbers. Computation taking too long.")
             if result > 10 ** 10000:
                 raise Exception("Result too large to compute factorial for this number.")

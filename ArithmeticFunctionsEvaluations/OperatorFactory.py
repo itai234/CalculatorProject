@@ -40,7 +40,7 @@ class OperatorFactory:
             '~': NumberNeg,
             '!': NumberFactorial,
             '#': NumberSumDigits,
-            'Unary':NumberUnaryMinus
+            'Unary': NumberUnaryMinus
         }
         self._Priorities = {
             '+': 1,
