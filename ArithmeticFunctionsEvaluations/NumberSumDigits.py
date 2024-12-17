@@ -24,4 +24,3 @@ class NumberSumDigits(Operator):
 
     def get_priority(self) -> int:
         return OperatorFactory().get_priority("#")
-

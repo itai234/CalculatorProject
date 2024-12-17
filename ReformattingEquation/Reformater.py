@@ -6,6 +6,9 @@ from ReformattingEquation.ReformatSpaces import fix_spaces_in_equation
 
 
 def reformat(equation: str) -> list:
+    """
+    this function handles all the reformatting of the equation
+    """
     equation = fix_spaces_in_equation(equation)
     equation = list(equation)
     if not equation:

@@ -43,10 +43,9 @@ def is_valid_operators(equation: list) -> list:
 def check_for_missing_parenthesis(equation: list) -> list:
     """
     Checks for balanced and correctly matched parentheses in the equation.
-    :param equation: The input equation as a list of tokens.
-    :return: A list of error messages.
+    :param equation: The input equation as a list of the equation.
+    :return: A list of error messages (if there are).
     """
-    # Get operator and parenthesis details from the factory
     opening_parenthesis = operatorFactory.get_opening_parenthesis()
     closing_parenthesis = operatorFactory.get_closing_parenthesis()
     operators_without_right_side = operatorFactory.get_operators().copy()
@@ -63,17 +62,12 @@ def check_for_missing_parenthesis(equation: list) -> list:
     errors = []
 
     for i, element in enumerate(equation):
-        # Check for empty brackets ()
         if element in opening_parenthesis and i + 1 < len(equation) and equation[i + 1] in closing_parenthesis:
             errors.append(f"Empty brackets at position {i}, {i + 1}.")
-
-        # Check for opening parenthesis validity
         if element in opening_parenthesis:
             if i > 0 and equation[i - 1] not in operators_without_right_side:
                 errors.append(f"Illegal opening parenthesis at position {i}.")
-            stack.append((element, i))  # Push the opening parenthesis and its position onto the stack
-
-        # Check for closing parenthesis validity
+            stack.append((element, i))
         elif element in closing_parenthesis:
             if i + 1 < len(equation) and equation[i + 1] not in operators_without_left_side:
                 errors.append(f"Illegal closing parenthesis at position {i}.")
@@ -93,6 +87,10 @@ def check_for_missing_parenthesis(equation: list) -> list:
 
 
 def check_end_of_equation(equation: list) -> list:
+    """
+    checks the end of the equation if a plus or a minus and if it is adds it to
+    the error list .
+    """
     errors = []
     if equation[-1] in "+-":
         errors.append(f"Cannot End The Equation With {equation[-1]}")

@@ -6,6 +6,10 @@ operatorFactory = OperatorFactory()
 
 
 def check_2_operands_operators_right_side(equation: list) -> list:
+    """
+    the function is responsible to check and validate the 2 operands
+    operators in the list , if they are surrounded by parenthesis or values
+    """
     operators = operatorFactory.get_two_operands_operators()
     operators.remove('-')
     right_side_operators = operatorFactory.get_one_operands_operators()
@@ -21,7 +25,7 @@ def check_2_operands_operators_right_side(equation: list) -> list:
                         and equation[i + 1] \
                         not in operatorFactory.get_opening_parenthesis() \
                         and equation[i - 1] not in right_side_operators:
-                    if equation[i] == '+':
+                    if equation[i] == '+' or equation[i+1] in operatorFactory.get_one_operands_operators_left_side():
                         pass
                     else:
                         errors.append(f"Operator '{equation[i]}' \
@@ -31,6 +35,10 @@ def check_2_operands_operators_right_side(equation: list) -> list:
 
 
 def check_1_operands_operators(equation: list) -> list:
+    """
+    the function checks and validates if the equation is legal by
+    checking the 1 operands operators.
+    """
     operators = operatorFactory.get_one_operands_operators()
     left_side_operators = operatorFactory.get_one_operands_operators_left_side()
     right_side_operators = operatorFactory.get_one_operands_operators_right_side()
@@ -65,6 +73,9 @@ def check_1_operands_operators(equation: list) -> list:
 
 
 def check_if_float(word: str) -> bool:
+    """
+    the function checks if the str given to it is a float number
+    """
     valid_chars = operatorFactory.get_numbers() + operatorFactory.get_floating_point() + list(operatorFactory.get_minus())
     if word == operatorFactory.get_minus():
         return False
@@ -74,7 +85,10 @@ def check_if_float(word: str) -> bool:
 
 
 def check_for_invalid_floating_points(equation: list) -> list:
-    # Checks for invalid floating-point numbers in the equation The input equation as the equation
+    """
+    the function checks for invalid floating points in it for example:
+    3.3.3
+    """
     errors = []
     i = 0
     while i < len(equation):
@@ -100,6 +114,8 @@ def check_unary_minuses(equation: list) -> list:
     errors = []
     i = 0
     while i < len(equation) - 1:
+        if equation[i] == factory.get_minus() and equation[i+1] in factory.get_closing_parenthesis():
+            errors.append("Cannot Enter a minus and a closing parenthesis after it.")
         if equation[i] == factory.get_minus() and equation[i + 1] == factory.get_minus():
             while equation[i] == factory.get_minus():
                 i += 1

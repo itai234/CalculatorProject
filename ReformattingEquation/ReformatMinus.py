@@ -7,10 +7,9 @@ factory = OperatorFactory()
 
 def handle_unary_minus(equation: list) -> list:
     """
-    Handles unary minus by transforming double minuses into a positive sign.
-    If only one minus is found, it remains as is.
-    :param equation: List representation of the equation.
-    :return: The equation with unary minus correctly handled.
+    handles unary minus by deleting or ,
+    if only one minus is found, it remains as is, or the that the result of the minues
+    should be a one minus.
     """
     i = 0
     while i < len(equation) - 1:
@@ -18,6 +17,8 @@ def handle_unary_minus(equation: list) -> list:
         if equation[i] == factory.get_minus() and i + 1 < len(equation) and equation[i + 1] == factory.get_minus() and i == 0:
             del equation[i]
             del equation[i]
+            if len(equation) == 0:
+                raise ValueError("Cannot enter an Empty Equation")
             if equation[i] not in factory.get_opening_parenthesis() and not check_if_all_legal_chars(equation[i]) and \
                     equation[i] != '-':
                 raise ValueError(
@@ -31,6 +32,9 @@ def handle_unary_minus(equation: list) -> list:
 
 def handle_sign_minus(equation: list) -> list:
     """
+    the function handles the sign minus , means that if there is a sign minus it would
+    stick to a operand , or if there are parenthesis , it will create a new
+    pair of parenthesis with minus in them .
     """
     operators = factory.get_operators()
     operators = list(set(operators) - set(factory.get_one_operands_operators_right_side()))
@@ -62,16 +66,17 @@ def handle_sign_minus(equation: list) -> list:
 
 def check_if_all_legal_chars(equation: str) -> bool:
     """
-    Validates if all characters in the equation are legal for operands.
-
-    :param equation: A string representing part of the equation.
-    :return: True if all characters are legal, False otherwise.
+    validates if the given str is a number.
     """
     legal_chars = factory.get_numbers() + factory.get_floating_point() + list(factory.get_minus())
     return all(char in legal_chars for char in equation)
 
 
 def insert_minus_and_parenthesis(equation: list, index: int) -> list:
+    """
+    this function creates a new pair of parenthesis with minus insides them and inserts
+    them between a sub equation.
+    """
     equation.insert(index, operatorFactory.get_opening_parenthesis()[0])
     equation.insert(index + 1, factory.get_minus())
     count = 0

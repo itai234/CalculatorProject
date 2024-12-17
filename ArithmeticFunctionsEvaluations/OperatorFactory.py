@@ -17,7 +17,8 @@ class OperatorFactory:
     """
     this factory will have all the operators classes evaluations performed by him
     it will have his dict of operators that each has the value of the class of the operator and will perform
-    the calculations
+    the calculations.
+    the factory is a singleton
     """
     _instance = None
 
@@ -27,6 +28,8 @@ class OperatorFactory:
         return cls._instance
 
     def __init__(self):
+        # has a operators dict with references to their classes
+        # and a dict of the operators with their properties
         self._operators = {
             '+': NumbersAddition,
             '-': NumbersSubtraction,

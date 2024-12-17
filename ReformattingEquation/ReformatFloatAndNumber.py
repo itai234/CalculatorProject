@@ -21,7 +21,7 @@ def fix_long_numbers(equation: list) -> list:
     return equation
 
 
-def fix_float_numbers(equation: list, precision: int = 100) -> list:
+def fix_float_numbers(equation: list, precision: int = 500) -> list:
     """
     :param equation:gets the equation
     :return: returns the equation with the float numbers fixed and together, with maximal precision of 100
