@@ -64,7 +64,10 @@ class EvaluationOfPostFix:
         calculator for 1 operands operators
         """
         operand1 = self._stack.pop()
-        self._stack.append(self._factory.operation(operator, float(operand1)))
+        if operator == '#':
+            self._stack.append(self._factory.operation(operator, str(operand1)))
+        else:
+            self._stack.append(self._factory.operation(operator, float(operand1)))
 
     def two_operators_calculation(self, operator: str):
         """

@@ -7,15 +7,13 @@ class NumberSumDigits(Operator):
         """
         the function returns the sub of the second number from the first
         """
-        if num1 < 0:
+        if '-' in num1:
             raise ValueError("Cannot sum digits of a negative number")
-        if isinstance(num1, float):
-            num1 = str(num1).replace(".", "")
-        num_str = str(num1)
-        if not num_str.isdigit():
-            raise ValueError("Invalid input for this action")
+        num1 = str(num1).replace(".", "")
         sum_digits = 0
-        for x in num_str:
+        for x in num1:
+            if x not in list("0123456789"):
+                raise ValueError("Invalid input for this action")
             sum_digits += int(x)
         return int(sum_digits)
 
