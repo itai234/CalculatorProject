@@ -8,8 +8,8 @@ operator_factory = OperatorFactory()
 
 def fix_long_numbers(equation: list) -> list:
     """
-    :param equation: the input is the equation as a list
-    :return: it returns the list of (chars) to connect the more than 1 digit numbers
+    the function gets the equation and if an element in the equation is a single number it will connect it to the rest the number
+    example  - 2,3,4 = 234
     """
     i = 0
     while i < len(equation) - 1:
@@ -21,10 +21,12 @@ def fix_long_numbers(equation: list) -> list:
     return equation
 
 
-def fix_float_numbers(equation: list, precision: int = 500) -> list:
+def fix_float_numbers(equation: list, precision: int = 100) -> list:
     """
-    :param equation:gets the equation
-    :return: returns the equation with the float numbers fixed and together, with maximal precision of 100
+    the function receives the equation and checks for floating points to connect -
+    example - 3123,., 123 = 3123.123
+    if it finds mistakes like floating point at the start of the equation or floating point on non numbers
+    or putting multiple floating points it will raise an error else it will build the number
     """
     i = 0
     if equation[0] == factory.get_floating_point()[0]:

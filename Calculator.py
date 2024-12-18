@@ -4,6 +4,9 @@ from Evaluation.TransformInfixToPostFix import InfixToPostfix
 
 
 def main():
+    """
+    main function in the program that takes the equation, and evaluate it, if there are errors in the equation it will print them
+    """
     infix_converter = InfixToPostfix()
     print("\n" + "="*50)
     print("💻  Welcome to My Advanced Calculator! 🧮")
@@ -29,7 +32,7 @@ def main():
             print("-" * 50)
             equation = input("🔢 Enter Your Equation: ")
             if equation.strip().upper() == "EXIT":
-                print("\nThank you for using the calculator! Goodbye! 👋")
+                print("\nThank you for using my calculator! Goodbye! 👋")
                 exit(0)
 
             equation = list(reformat(equation))

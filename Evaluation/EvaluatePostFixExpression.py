@@ -40,11 +40,13 @@ class EvaluationOfPostFix:
                 self.handle_difference(element)
             else:
                 self._stack.append(element)
-        return self._stack[0]
 
+        if self._stack[0] == float('inf'):
+            raise ArithmeticError("The result is too Big.")
+        return self._stack[0]
     def is_operator(self, element):
         """
-        checks if the element is a operator
+        checks if the element is an operator
         """
         oplist = self._factory.get_operators()
         return element in oplist

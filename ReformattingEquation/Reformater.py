@@ -8,6 +8,7 @@ from ReformattingEquation.ReformatSpaces import fix_spaces_in_equation
 def reformat(equation: str) -> list:
     """
     this function handles all the reformatting of the equation
+    calls all the functions of the reformatting.
     """
     equation = fix_spaces_in_equation(equation)
     equation = list(equation)

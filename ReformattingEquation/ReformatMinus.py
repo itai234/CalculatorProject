@@ -7,9 +7,10 @@ factory = OperatorFactory()
 
 def handle_unary_minus(equation: list) -> list:
     """
-    handles unary minus by deleting or ,
+    handles unary minus by deleting or -
     if only one minus is found, it remains as is, or the that the result of the minues
     should be a one minus.
+    the function also checks if there is a illegal unary minus and if there is it will raise an error
     """
     i = 0
     while i < len(equation) - 1:
@@ -33,8 +34,10 @@ def handle_unary_minus(equation: list) -> list:
 def handle_sign_minus(equation: list) -> list:
     """
     the function handles the sign minus , means that if there is a sign minus it would
-    stick to a operand , or if there are parenthesis , it will create a new
-    pair of parenthesis with minus in them .
+    stick to an operand , or if there are parenthesis , it will create a new
+    pair of parenthesis with minus in them. -- > (-(5+1))
+    the function also search for wrong placements of the minus for example in the end
+    or on non numbers
     """
     operators = factory.get_operators()
     operators = list(set(operators) - set(factory.get_one_operands_operators_right_side()))
@@ -66,7 +69,7 @@ def handle_sign_minus(equation: list) -> list:
 
 def check_if_all_legal_chars(equation: str) -> bool:
     """
-    validates if the given str is a number.
+    validates if the given str is a number or not.
     """
     legal_chars = factory.get_numbers() + factory.get_floating_point() + list(factory.get_minus())
     return all(char in legal_chars for char in equation)
@@ -75,7 +78,8 @@ def check_if_all_legal_chars(equation: str) -> bool:
 def insert_minus_and_parenthesis(equation: list, index: int) -> list:
     """
     this function creates a new pair of parenthesis with minus insides them and inserts
-    them between a sub equation.
+    them between a sub equation, it also will make sure if there are parenthesis with a right side operator outside of them
+    to include it , for example 10--(5+3)!
     """
     equation.insert(index, operatorFactory.get_opening_parenthesis()[0])
     equation.insert(index + 1, factory.get_minus())
@@ -87,8 +91,13 @@ def insert_minus_and_parenthesis(equation: list, index: int) -> list:
         if equation[index] in operatorFactory.get_closing_parenthesis():
             count -= 1
         if count == 0:
-            if equation[index+1] in operatorFactory.get_one_operands_operators_right_side():
-                equation.insert(index + 2, operatorFactory.get_closing_parenthesis()[0])
+            if index+ 1 < len(equation):
+                if equation[index+1] in operatorFactory.get_one_operands_operators_right_side():
+                    temp = equation[index+1]
+                    equation[index+1] = operatorFactory.get_closing_parenthesis()[0]
+                    equation.insert(index + 2,temp)
+                else:
+                    equation.insert(index + 1, operatorFactory.get_closing_parenthesis()[0])
             else:
                 equation.insert(index + 1, operatorFactory.get_closing_parenthesis()[0])
             return equation

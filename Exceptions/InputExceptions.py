@@ -5,12 +5,11 @@ operatorFactory = OperatorFactory()
 
 def is_valid_letters(equation: list) -> list:
     """
-    :param list:  gets the equation  and checks if the equation is valid(in the prespective of letters)
-    :return: returns true if the list is valid and else raises an error
+    the function receives the equation and checks if all the equation characters are legal , if it isn't
+    it will return all the illegal characters in the equation
     """
     allowed_letters = set(operatorFactory.get_all_legal_letters())
     errors = []
-
     if not equation or all(char == " " for char in equation):
         errors.append("The equation is either empty or contains only spaces.")
     for x in equation:
@@ -22,8 +21,8 @@ def is_valid_letters(equation: list) -> list:
 
 def is_valid_operators(equation: list) -> list:
     """
-    :param equation: gets the equation as a list
-    :return: checks for errors of duplicated operators that are illegal to dup and if there are return a list of errors containing them
+    the function receives the equation and checks for duplicated operators , besides + and minus that can be duplicated.
+    if there are duplicates it will add them to the list of errors and return it in the end.
     """
     errors = []
     illegal_duplication = set(operatorFactory.get_operators())
@@ -42,9 +41,9 @@ def is_valid_operators(equation: list) -> list:
 
 def check_for_missing_parenthesis(equation: list) -> list:
     """
-    Checks for balanced and correctly matched parentheses in the equation.
-    :param equation: The input equation as a list of the equation.
-    :return: A list of error messages (if there are).
+    the function receives the list and checks for missing parenthesis, including the operators without right side
+    and operators without left side to not include them in certain checks.
+    checks for : () ,( , ) ,
     """
     opening_parenthesis = operatorFactory.get_opening_parenthesis()
     closing_parenthesis = operatorFactory.get_closing_parenthesis()
@@ -63,26 +62,25 @@ def check_for_missing_parenthesis(equation: list) -> list:
 
     for i, element in enumerate(equation):
         if element in opening_parenthesis and i + 1 < len(equation) and equation[i + 1] in closing_parenthesis:
-            errors.append(f"Empty brackets at position {i}, {i + 1}.")
+            errors.append(f"Empty brackets at position {i+1}, {i + 2}.")
         if element in opening_parenthesis:
             if i > 0 and equation[i - 1] not in operators_without_right_side:
-                errors.append(f"Illegal opening parenthesis at position {i}.")
+                errors.append(f"Illegal opening parenthesis at position {i+1}.")
             stack.append((element, i))
         elif element in closing_parenthesis:
             if i + 1 < len(equation) and equation[i + 1] not in operators_without_left_side:
-                errors.append(f"Illegal closing parenthesis at position {i}.")
+                errors.append(f"Illegal closing parenthesis at position {i+1}.")
             if not stack:
-                errors.append(f"Unmatched closing '{element}' at position {i}.")
+                errors.append(f"Unmatched closing '{element}' at position {i+1}.")
             else:
                 last_open, open_pos = stack.pop()
                 if pairs[last_open] != element:
                     errors.append(f"Mismatched parenthesis: '{last_open}' at position {open_pos} "
-                                  f"and '{element}' at position {i}.")
+                                  f"and '{element}' at position {i+1}.")
 
     while stack:
         unmatched_open, pos = stack.pop()
         errors.append(f"Unmatched opening '{unmatched_open}' at position {pos}.")
-
     return errors
 
 

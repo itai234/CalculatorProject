@@ -35,6 +35,7 @@ class InfixToPostfix:
     def convert(self):
         """
         main function to convert the infix into the postfix expressions.
+        iterates through the infix expression , checks if the element is either an operand,operator,or parenthesis
         """
         i = 0
         for element in self._InfixExpression:
