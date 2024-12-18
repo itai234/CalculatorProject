@@ -58,7 +58,7 @@ def handle_sign_minus(equation: list) -> list:
                     if equation[i + 1] in operatorFactory.get_opening_parenthesis():
                         equation = insert_minus_and_parenthesis(equation, i + 1)
             else:
-                raise ValueError("cannot put minus sign on non numbers")
+                raise ValueError(f"cannot put minus sign on non numbers, here its on {equation[i+1]} at location {i+1}")
         else:
             i += 1
     return equation
@@ -87,7 +87,10 @@ def insert_minus_and_parenthesis(equation: list, index: int) -> list:
         if equation[index] in operatorFactory.get_closing_parenthesis():
             count -= 1
         if count == 0:
-            equation.insert(index + 1, operatorFactory.get_closing_parenthesis()[0])
+            if equation[index+1] in operatorFactory.get_one_operands_operators_right_side():
+                equation.insert(index + 2, operatorFactory.get_closing_parenthesis()[0])
+            else:
+                equation.insert(index + 1, operatorFactory.get_closing_parenthesis()[0])
             return equation
         index += 1
     return equation
