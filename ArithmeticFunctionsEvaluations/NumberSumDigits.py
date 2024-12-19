@@ -8,7 +8,7 @@ class NumberSumDigits(Operator):
         the function returns the sub of the second number from the first
         """
         if '-' in num1:
-            raise ValueError("Cannot sum digits of a negative number")
+            raise ArithmeticError("Cannot sum digits of a negative number")
         num1 = str(num1).replace(".", "")
         sum_digits = 0
         for x in num1:

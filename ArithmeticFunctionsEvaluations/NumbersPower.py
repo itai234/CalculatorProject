@@ -11,9 +11,9 @@ class NumbersPower(Operator):
         :return: first number power by the second number
         """
         if num1 < 0 and (num2 < 1 and num2 > -1):
-            raise ValueError("Cannot Perform sqrt on a negative value")
+            raise ArithmeticError("Cannot Perform sqrt on a negative value")
         if num1 == 0 and num2 <= 0:
-            raise ValueError("0 raised to a non-positive power is undefined.")
+            raise ArithmeticError("0 raised to a non-positive power is undefined.")
         try:
             result = pow(num1, num2)
             if result > 10 ** 10000:

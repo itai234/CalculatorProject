@@ -1,6 +1,6 @@
 import  pytest
 
-from ArithmeticFunctionsEvaluations.OperatorFactory import OperatorFactory
+from ArithmeticFunctionsEvaluations.OperatorFactory import *
 
 factory = OperatorFactory()
 

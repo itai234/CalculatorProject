@@ -1,17 +1,5 @@
-from ArithmeticFunctionsEvaluations.NumberUnaryMinus import NumberUnaryMinus
-from ArithmeticFunctionsEvaluations.NumbersAvg import NumbersAvg
-from ArithmeticFunctionsEvaluations.NumbersDivision import NumbersDivision
-from ArithmeticFunctionsEvaluations.NumberNeg import NumberNeg
-from ArithmeticFunctionsEvaluations.NumbersAddition import NumbersAddition
-from ArithmeticFunctionsEvaluations.NumbersSubtraction import NumbersSubtraction
-from ArithmeticFunctionsEvaluations.NumbersMultiplication import NumbersMultiplication
-from ArithmeticFunctionsEvaluations.NumbersModulo import NumbersModulo
-from ArithmeticFunctionsEvaluations.NumbersPower import NumbersPower
-from ArithmeticFunctionsEvaluations.NumbersMinimum import NumbersMinimum
-from ArithmeticFunctionsEvaluations.NumbersMaximum import NumbersMaximum
-from ArithmeticFunctionsEvaluations.NumberFactorial import NumberFactorial
-from ArithmeticFunctionsEvaluations.NumberSumDigits import NumberSumDigits
 
+from ArithmeticFunctionsEvaluations.CalculatorProperties import *
 
 class OperatorFactory:
     """
@@ -30,78 +18,64 @@ class OperatorFactory:
     def __init__(self):
         # has a operators dict with references to their classes
         # and a dict of the operators with their properties
-        self._operators = {
-            '+': NumbersAddition,
-            '-': NumbersSubtraction,
-            '*': NumbersMultiplication,
-            '/': NumbersDivision,
-            '^': NumbersPower,
-            '%': NumbersModulo,
-            '$': NumbersMaximum,
-            '&': NumbersMinimum,
-            '@': NumbersAvg,
-            '~': NumberNeg,
-            '!': NumberFactorial,
-            '#': NumberSumDigits,
-            'Unary': NumberUnaryMinus
-        }
-        self._Priorities = {
-            '+': 1,
-            '-': 1,
-            '*': 2,
-            '/': 2,
-            '^': 3,
-            '%': 4,
-            '$': 5,
-            '&': 5,
-            '@': 5,
-            '~': 6,
-            '!': 6,
-            '#': 6,
-            'Unary': 2.5
-        }
-
+        if not hasattr(self, "_initialized"):
+            self._operators = OPERATORS
+            self._Priorities = PRIORITIES
+            self._two_operands_operators = []
+            self._one_operands_operators = []
+            self._one_operands_operators_left = []
+            self._one_operands_operators_right =  []
+            for key in self._operators.keys():
+                side = self.get_side(key)
+                if side == "Middle":
+                    self._two_operands_operators.append(key)
+                if side == "left":
+                    self._one_operands_operators.append(key)
+                    self._one_operands_operators_left.append(key)
+                if side == "right":
+                    self._one_operands_operators.append(key)
+                    self._one_operands_operators_right.append(key)
+            self._numbers = NUMBERS
+            self._parenthesis = PARENTHESIS
+            self._floating_point = FLOATING_POINT
+            self._initialized = True
     def operation(self, operator_type, num1, num2=None) -> float:
         """
         this function performs the calculation , it receives the operator type like +, - and more ,
-        it gets two numbers but if receives one number then the other is None by defult (if the user wants Factorial
+        it gets two numbers but if receives one number then the other is None by default (if the user wants Factorial
         or Neg) and it calls the relevant function .
         """
-        operator_class = self._operators.get(operator_type)
-        if operator_class is None:
-            raise ValueError(f"No Such Operator as : {operator_type}")
-        operator_instance = operator_class()
-        return operator_instance.execute(num1, num2)
+        return self._operators.get(operator_type)().execute(num1, num2)
 
     def get_operators(self) -> list:
         return list(self._operators.keys())
 
     def get_numbers(self) -> list:
-        return list("0123456789")
+        return list(self._numbers)
 
     def get_parenthesis(self) -> list:
-        return list("()")
+        return list(self._parenthesis)
 
     def get_floating_point(self) -> list:
-        return list(".")
+        return list(self._floating_point)
 
     def get_opening_parenthesis(self) -> list:
-        return list("(")
+        return list(self._parenthesis[0])
 
     def get_closing_parenthesis(self) -> list:
-        return list(")")
+        return list(self._parenthesis[1])
 
     def get_two_operands_operators(self) -> list:
-        return list("+-*/^%$&@")
+        return list(self._two_operands_operators)
 
     def get_one_operands_operators(self) -> list:
-        return list("#~!")
+        return list(self._one_operands_operators)
 
     def get_one_operands_operators_left_side(self) -> list:
-        return list("~")
+        return list(self._one_operands_operators_left)
 
     def get_one_operands_operators_right_side(self) -> list:
-        return list("#!")
+        return list(self._one_operands_operators_right)
 
     def get_priority(self, operator: str) -> int:
         return self._Priorities.get(operator)
@@ -113,7 +87,7 @@ class OperatorFactory:
         return operator_class().get_side()
 
     def get_parenthesis_pairs(self) -> dict:
-        return {'(': ')'}
+        return {self._parenthesis[0]: self._parenthesis[1]}
 
     def get_all_legal_letters(self) -> list:
         return list(self.get_operators() + self.get_numbers() + self.get_parenthesis() + self.get_floating_point())

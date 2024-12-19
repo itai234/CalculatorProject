@@ -111,9 +111,7 @@ class InfixToPostfix:
         """
         checks if it is a unary minus at this position.
         """
-        operators = set(OperatorFactory().get_operators())
-        operators.remove('!')
-        operators.remove('#')
+        operators = set(set(OperatorFactory().get_operators()) - set(OperatorFactory().get_one_operands_operators_right_side()))
         return (
                 self._prev < 0 or  # At the start of the expression
                 self._InfixExpression[self._prev] in operators or
