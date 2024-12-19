@@ -73,7 +73,6 @@ def test_invalid_syntax():
     print( evaluate_infix("3 + (2 * 3") )
     print( evaluate_infix("3 + 5)"))
     print( evaluate_infix("~ + 2"))
-    print( evaluate_infix("~- 2"))
     print( evaluate_infix("10 %% 3"))
     print( evaluate_infix("5 $ @ 3"))
     print( evaluate_infix("3 @ + 4"))

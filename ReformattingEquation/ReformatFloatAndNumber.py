@@ -33,18 +33,28 @@ def fix_float_numbers(equation: list, precision: int = 100) -> list:
             if not check_if_float(equation[i - 1]):
                 raise ValueError(f"Invalid Floating Point at {i+1}")
         if check_if_float(equation[i]) and equation[i + 1] == get_floating_point()[0]:
-            if i+2 >= len(equation):
-                raise ValueError("Cannot Put Multiple floating points in one number/ missing parts of the float.")
-            if not check_if_float(equation[i]) or not check_if_float(equation[i + 2]):
-                raise ValueError("Cannot Put Multiple floating points in one number/ missing parts of the float.")
-            number = equation[i] + equation[i + 1] + equation[i + 2]
-            del equation[i + 1]
-            del equation[i + 1]
-            if '.' in number:
-                integer_part, decimal_part = number.split('.')
-                decimal_part = decimal_part[:precision]
-                equation[i] = f'{integer_part}.{decimal_part}'
-            else:
-                equation[i] = number
+            equation = fix_float_numbers_handler(equation,i,precision)
         i += 1
     return equation
+
+
+def fix_float_numbers_handler(equation:list , i: int, precision: int) -> list:
+    """
+    the function handles the replacing of the dot and connecting the float number itself.
+    """
+    if i + 2 >= len(equation):
+        raise ValueError("Cannot Put Multiple floating points in one number/ missing parts of the float.")
+    if not check_if_float(equation[i]) or not check_if_float(equation[i + 2]):
+        raise ValueError("Cannot Put Multiple floating points in one number/ missing parts of the float.")
+    number = equation[i] + equation[i + 1] + equation[i + 2]
+    del equation[i + 1]
+    del equation[i + 1]
+    if '.' in number:
+        integer_part, decimal_part = number.split('.')
+        decimal_part = decimal_part[:precision]
+        equation[i] = f'{integer_part}.{decimal_part}'
+    else:
+        equation[i] = number
+    return equation
+
+

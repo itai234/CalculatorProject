@@ -13,6 +13,7 @@ def fix_cloned_operators(equation: list) -> list:
     right_operators =get_one_operands_operators()
     right_operators = list(set(right_operators)-set(get_one_operands_operators_left_side()))
     allowed_plus.extend(right_operators)
+
     while i < len(equation) - 1:
         if equation[i] == '+':
             if i == 0 or equation[i-1] not in allowed_plus:

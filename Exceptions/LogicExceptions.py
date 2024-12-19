@@ -21,16 +21,24 @@ def check_2_operands_operators(equation: list) -> list:
             if i == 0 or i == len(equation) - 1:
                 errors.append(f"Cannot put the operator '{equation[i]}' at the start or end of the equation")
             elif not check_if_float(equation[i - 1]) or not check_if_float(equation[i + 1]):
-                if equation[i - 1] not in get_closing_parenthesis() \
-                        and equation[i + 1] \
-                        not in get_opening_parenthesis() \
-                        and equation[i - 1] not in right_side_operators:
-                    if equation[i+1] in get_one_operands_operators_left_side(): # removed equation[i] == '+'---
-                        pass
-                    else:
-                        errors.append(f"Operator '{equation[i]}' at location {i+1} \
-                        must be surrounded by valid operands (numbers) or parenthesis")
+                errors = two_operands_false_condition(equation,i,errors,right_side_operators)
         i += 1
+    return errors
+
+
+def two_operands_false_condition(equation:list , i: int , errors:list , right_side_operators: list) -> list:
+    """
+    the function gets current index, the equation and errors list and searches if the location of the 2 operands operator is legal or not.
+    (if it is not near parenthesis or right side operators..)
+    """
+    if equation[i - 1] not in get_closing_parenthesis() \
+            and equation[i + 1] not in get_opening_parenthesis() \
+            and equation[i - 1] not in right_side_operators:
+        if equation[i + 1] in get_one_operands_operators_left_side():  # removed equation[i] == '+'---
+            pass
+        else:
+            errors.append(f"Operator '{equation[i]}' at location {i + 1} \
+            must be surrounded by valid operands (numbers) or parenthesis")
     return errors
 
 

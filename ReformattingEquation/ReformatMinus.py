@@ -1,5 +1,4 @@
-import ArithmeticFunctionsEvaluations.OperatorFactory
-from ArithmeticFunctionsEvaluations.OperatorFactory import OperatorFactory
+
 from ArithmeticFunctionsEvaluations.Properties import *
 
 def handle_unary_minus(equation: list) -> list:
@@ -27,6 +26,7 @@ def handle_unary_minus(equation: list) -> list:
         i += 1
     return equation
 
+
 def handle_sign_minus(equation: list) -> list:
     """
     the function handles the sign minus , means that if there is a sign minus it would
@@ -42,7 +42,6 @@ def handle_sign_minus(equation: list) -> list:
         if equation[i] in operators and i + 1 < len(equation) and equation[i + 1] == get_minus() and (
                 i != 0 or equation != get_minus()):
             is_minus = False
-
             if i + 1 >= len(equation):
                 raise ValueError("Wrong placement for minus in the end.")
             while equation[i + 1] == get_minus():
@@ -51,15 +50,24 @@ def handle_sign_minus(equation: list) -> list:
                 if i + 1 >= len(equation):
                     raise ValueError("Wrong placement for minus in the end.")
             if check_if_all_legal_chars(equation[i + 1]) or equation[i + 1] in get_opening_parenthesis():
-                if is_minus:
-                    if check_if_all_legal_chars(equation[i + 1]):
-                        equation[i + 1] = get_minus() + equation[i + 1]
-                    if equation[i + 1] in get_opening_parenthesis():
-                        equation = insert_minus_and_parenthesis(equation, i + 1)
+                equation = hande_minus_sign_on_chars(equation,is_minus,i)
             else:
                 raise ValueError(f"cannot put minus sign on non numbers, here its on {equation[i+1]} at location {i+1}")
         else:
             i += 1
+    return equation
+
+
+def hande_minus_sign_on_chars(equation: list, is_minus: bool, i : int  ) -> list:
+    """
+    the function receives the equation , is_minus sign that is a bool and a index ,
+    if a minus sign is true for example 5+-5 and not 5+--5 that the minus is deleted , it will put the minus.
+    """
+    if is_minus:
+        if check_if_all_legal_chars(equation[i + 1]):
+            equation[i + 1] = get_minus() + equation[i + 1]
+        if equation[i + 1] in get_opening_parenthesis():
+            equation = insert_minus_and_parenthesis(equation, i + 1)
     return equation
 
 
@@ -87,15 +95,8 @@ def insert_minus_and_parenthesis(equation: list, index: int) -> list:
         if equation[index] in get_closing_parenthesis():
             count -= 1
         if count == 0:
-            if index+ 1 < len(equation):
-                if equation[index+1] in get_one_operands_operators_right_side():
-                    temp = equation[index+1]
-                    equation[index+1] = get_closing_parenthesis()[0]
-                    equation.insert(index + 2,temp)
-                else:
-                    equation.insert(index + 1, get_closing_parenthesis()[0])
-            else:
-                equation.insert(index + 1, get_closing_parenthesis()[0])
+            equation.insert(index + 1, get_closing_parenthesis()[0])
             return equation
         index += 1
     return equation
+

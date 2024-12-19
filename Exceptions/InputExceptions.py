@@ -65,16 +65,34 @@ def check_for_missing_parenthesis(equation: list) -> list:
                 errors.append(f"Illegal opening parenthesis at position {i+1}.")
             stack.append((element, i))
         elif element in closing_parenthesis:
-            if i + 1 < len(equation) and equation[i + 1] not in operators_without_left_side:
-                errors.append(f"Illegal closing parenthesis at position {i+1}.")
-            if not stack:
-                errors.append(f"Unmatched closing '{element}' at position {i+1}.")
-            else:
-                last_open, open_pos = stack.pop()
-                if pairs[last_open] != element:
-                    errors.append(f"Mismatched parenthesis: '{last_open}' at position {open_pos} "
-                                  f"and '{element}' at position {i+1}.")
+            errors,stack = check_missing_parenthesis_after_closing_parenthesis(equation,i,errors,stack,element,operators_without_left_side)
 
+    errors = empty_stack(stack,errors)
+    return errors
+
+
+def check_missing_parenthesis_after_closing_parenthesis(equation: list, i: int, errors:list, stack:list,element:str,operators_without_left_side:list):
+    """
+    the function handles finding missing parenthesis when receiving a closing parenthesis
+    """
+    pairs = get_parenthesis_pairs()
+    if i + 1 < len(equation) and equation[i + 1] not in operators_without_left_side:
+        errors.append(f"Illegal closing parenthesis at position {i + 1}.")
+    if not stack:
+        errors.append(f"Unmatched closing '{element}' at position {i + 1}.")
+    else:
+        last_open, open_pos = stack.pop()
+        if pairs[last_open] != element:
+            errors.append(f"Mismatched parenthesis: '{last_open}' at position {open_pos} "
+                          f"and '{element}' at position {i + 1}.")
+
+    return errors,stack
+
+
+def empty_stack(stack: list , errors: list) -> list:
+    """
+    the function empties a stack, and if there are elements in the stack it will append to the errors list the elements
+    """
     while stack:
         unmatched_open, pos = stack.pop()
         errors.append(f"Unmatched opening '{unmatched_open}' at position {pos}.")
