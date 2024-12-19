@@ -1,5 +1,5 @@
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.OperatorFactory import *
+from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumberUnaryMinus(Operator):
@@ -15,4 +15,4 @@ class NumberUnaryMinus(Operator):
         return "left"
 
     def get_priority(self) -> int:
-        return OperatorFactory().get_priority("Unary")
+        return get_priority("Unary")

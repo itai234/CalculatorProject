@@ -1,6 +1,6 @@
 from math import pow
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.OperatorFactory import *
+from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumbersPower(Operator):
@@ -22,10 +22,12 @@ class NumbersPower(Operator):
                 return 0
             return result
         except OverflowError:
-            raise Exception("Result too large to compute.")
+            raise OverflowError("Result too large to compute.")
+        except ValueError:
+            raise ValueError("Cannot Perform sqrt on a negative value!")
 
     def get_side(self) -> str:
         return "Middle"
 
     def get_priority(self) -> int:
-        return OperatorFactory().get_priority("^")
+        return get_priority("^")

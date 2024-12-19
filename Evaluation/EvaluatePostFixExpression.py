@@ -1,5 +1,5 @@
 from ArithmeticFunctionsEvaluations.OperatorFactory import *
-
+from ArithmeticFunctionsEvaluations.Properties import *
 
 class EvaluationOfPostFix:
     """
@@ -48,7 +48,7 @@ class EvaluationOfPostFix:
         """
         checks if the element is an operator
         """
-        oplist = self._factory.get_operators()
+        oplist = get_operators()
         return element in oplist
 
     def handle_difference(self, operator: str):
@@ -56,7 +56,7 @@ class EvaluationOfPostFix:
         checks if the operator is a middle operator is a side operator
         means that 2 operands operators or else
         """
-        if self._factory.get_side(operator) == "Middle":
+        if get_side(operator) == "Middle":
             self.two_operators_calculation(operator)
         else:
             self.one_operator_calculation(operator)

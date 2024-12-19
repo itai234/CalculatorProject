@@ -1,5 +1,5 @@
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.OperatorFactory import *
+from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumbersSubtraction(Operator):
@@ -13,6 +13,6 @@ class NumbersSubtraction(Operator):
         return "Middle"
 
     def get_priority(self) -> int:
-        return OperatorFactory().get_priority("-")
+        return get_priority("-")
 
 

@@ -1,8 +1,6 @@
 
-from ArithmeticFunctionsEvaluations.OperatorFactory import *
-from TestCode.TestArithmeticFunctions import factory
+from ArithmeticFunctionsEvaluations.Properties import *
 
-operatorFactory = OperatorFactory()
 
 
 def check_2_operands_operators(equation: list) -> list:
@@ -12,10 +10,10 @@ def check_2_operands_operators(equation: list) -> list:
     if an operator is not surrounded by operands or parenthesis or right side operators. it will
     return a list of the errors.
     """
-    operators = operatorFactory.get_two_operands_operators()
+    operators = get_two_operands_operators()
     operators.remove('-')
-    right_side_operators = operatorFactory.get_one_operands_operators()
-    right_side_operators = list(set(right_side_operators)-set(operatorFactory.get_one_operands_operators_left_side()))
+    right_side_operators = get_one_operands_operators()
+    right_side_operators = list(set(right_side_operators)-set(get_one_operands_operators_left_side()))
     errors = []
     i = 0
     while i < len(equation):
@@ -23,11 +21,11 @@ def check_2_operands_operators(equation: list) -> list:
             if i == 0 or i == len(equation) - 1:
                 errors.append(f"Cannot put the operator '{equation[i]}' at the start or end of the equation")
             elif not check_if_float(equation[i - 1]) or not check_if_float(equation[i + 1]):
-                if equation[i - 1] not in operatorFactory.get_closing_parenthesis() \
+                if equation[i - 1] not in get_closing_parenthesis() \
                         and equation[i + 1] \
-                        not in operatorFactory.get_opening_parenthesis() \
+                        not in get_opening_parenthesis() \
                         and equation[i - 1] not in right_side_operators:
-                    if equation[i+1] in operatorFactory.get_one_operands_operators_left_side(): # removed equation[i] == '+'---
+                    if equation[i+1] in get_one_operands_operators_left_side(): # removed equation[i] == '+'---
                         pass
                     else:
                         errors.append(f"Operator '{equation[i]}' at location {i+1} \
@@ -42,9 +40,9 @@ def check_1_operands_operators(equation: list) -> list:
     checking the 1 operands operators.
     it has multiple checks inside of it.
     """
-    operators = operatorFactory.get_one_operands_operators()
-    left_side_operators = operatorFactory.get_one_operands_operators_left_side()
-    right_side_operators = operatorFactory.get_one_operands_operators_right_side()
+    operators = get_one_operands_operators()
+    left_side_operators = get_one_operands_operators_left_side()
+    right_side_operators = get_one_operands_operators_right_side()
     errors = []
     i = 0
     while i < len(equation):
@@ -69,7 +67,7 @@ def handle_1_operands_right_side(equation: list , i: int , errors : list, left_s
     if i == 0:
         errors.append(f"You cant put {temp} at the start")
     if not check_if_float(equation[i - 1]) and equation[i - 1] not in right_side_operators:
-        if equation[i - 1] in factory.get_closing_parenthesis():
+        if equation[i - 1] in get_closing_parenthesis():
             pass
         else:
             errors.append(f"You can't put '{temp}' after '{equation[i - 1]} or before nothing at this position {i+1}")
@@ -89,7 +87,7 @@ def handle_1_operands_left_side(equation: list , i: int , errors : list, left_si
     i += 1
     while i < len(equation) and equation[i] == '-':
         i += 1
-    if i >= len(equation) or not (check_if_float(equation[i]) or operatorFactory.get_opening_parenthesis()[0]):
+    if i >= len(equation) or not (check_if_float(equation[i]) or get_opening_parenthesis()[0]):
         if i >= len(equation):
             errors.append(f"You can't put {temp} in the end")
         else:
@@ -101,10 +99,10 @@ def check_if_float(word: str) -> bool:
     """
     the function checks if the str given to it is a float number.
     """
-    valid_chars = operatorFactory.get_numbers() + operatorFactory.get_floating_point() + list(operatorFactory.get_minus())
-    if word == operatorFactory.get_minus():
+    valid_chars = get_numbers() + get_floating_point() + list(get_minus())
+    if word == get_minus():
         return False
-    if word in factory.get_floating_point():
+    if word in get_floating_point():
         return False
     return all(char in valid_chars for char in word)
 
@@ -119,12 +117,12 @@ def check_for_invalid_floating_points(equation: list) -> list:
     i = 0
     while i < len(equation):
         element = equation[i]
-        if check_if_float(element) or element in factory.get_floating_point():
+        if check_if_float(element) or element in get_floating_point():
             num_str = ''
-            while i < len(equation) and (check_if_float(equation[i]) or equation[i] in factory.get_floating_point()):
+            while i < len(equation) and (check_if_float(equation[i]) or equation[i] in get_floating_point()):
                 num_str += equation[i]
                 i += 1
-            if num_str.count(factory.get_floating_point()[0]) > 1:
+            if num_str.count(get_floating_point()[0]) > 1:
                 errors.append(f"Invalid float detected: '{num_str}'")
         else:
             i += 1
@@ -136,16 +134,16 @@ def check_unary_minuses(equation: list) -> list:
     the function receives the equation and check legality for the unary minus ,
     checks if the unary minus is before a closing parenthesis, checks if the character the unary minus is on is legal (numbers or opening parenthesis)
     """
-    operators = set(operatorFactory.get_operators())
+    operators = set(get_operators())
     errors = []
     i = 0
     while i < len(equation) - 1:
-        if equation[i] == factory.get_minus() and equation[i+1] in factory.get_closing_parenthesis():
+        if equation[i] == get_minus() and equation[i+1] in get_closing_parenthesis():
             errors.append("Cannot Enter a minus and a closing parenthesis after it.")
-        if equation[i] == factory.get_minus() and equation[i + 1] == factory.get_minus():
-            while equation[i] == factory.get_minus():
+        if equation[i] == get_minus() and equation[i + 1] == get_minus():
+            while equation[i] == get_minus():
                 i += 1
-            if equation[i] not in operatorFactory.get_numbers() and equation[i] != factory.get_closing_parenthesis()[0]:
+            if equation[i] not in get_numbers() and equation[i] != get_closing_parenthesis()[0]:
                 errors.append(f"Illegal end to the Unary minus: {equation[i]}")
             i += 1
         else:

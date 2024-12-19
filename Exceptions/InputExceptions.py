@@ -1,14 +1,11 @@
-from ArithmeticFunctionsEvaluations.OperatorFactory import *
-
-operatorFactory = OperatorFactory()
-
+from ArithmeticFunctionsEvaluations.Properties import *
 
 def is_valid_letters(equation: list) -> list:
     """
     the function receives the equation and checks if all the equation characters are legal , if it isn't
     it will return all the illegal characters in the equation
     """
-    allowed_letters = set(operatorFactory.get_all_legal_letters())
+    allowed_letters = set(get_all_legal_letters())
     errors = []
     if not equation or all(char == " " for char in equation):
         errors.append("The equation is either empty or contains only spaces.")
@@ -25,10 +22,10 @@ def is_valid_operators(equation: list) -> list:
     if there are duplicates it will add them to the list of errors and return it in the end.
     """
     errors = []
-    illegal_duplication = set(operatorFactory.get_operators())
+    illegal_duplication = set(get_operators())
     illegal_duplication.remove('+')
     illegal_duplication.remove('-')
-    illegal_duplication = list(set(illegal_duplication) - set(operatorFactory.get_one_operands_operators_right_side()))
+    illegal_duplication = list(set(illegal_duplication) - set(get_one_operands_operators_right_side()))
     i = 0
     while i < len(equation) - 1:
         if equation[i] in illegal_duplication and equation[i + 1] == equation[i]:
@@ -45,18 +42,18 @@ def check_for_missing_parenthesis(equation: list) -> list:
     and operators without left side to not include them in certain checks.
     checks for : () ,( , ) ,
     """
-    opening_parenthesis = operatorFactory.get_opening_parenthesis()
-    closing_parenthesis = operatorFactory.get_closing_parenthesis()
-    operators_without_right_side = operatorFactory.get_operators().copy()
+    opening_parenthesis = get_opening_parenthesis()
+    closing_parenthesis = get_closing_parenthesis()
+    operators_without_right_side = get_operators().copy()
 
     operators_without_right_side = list(set(operators_without_right_side)\
-                                        -set(operatorFactory.get_one_operands_operators_right_side()))
+                                        -set(get_one_operands_operators_right_side()))
     operators_without_right_side.extend(opening_parenthesis)
-    operators_without_left_side = operatorFactory.get_operators().copy()
+    operators_without_left_side = get_operators().copy()
     operators_without_left_side = list(set(operators_without_left_side)\
-                                       - set(operatorFactory.get_one_operands_operators_left_side()))
+                                       - set(get_one_operands_operators_left_side()))
     operators_without_left_side.extend(closing_parenthesis)
-    pairs = operatorFactory.get_parenthesis_pairs()
+    pairs = get_parenthesis_pairs()
     stack = []
     errors = []
 

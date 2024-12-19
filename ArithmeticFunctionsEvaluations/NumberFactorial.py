@@ -1,6 +1,6 @@
 
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.OperatorFactory import *
+from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumberFactorial(Operator):
@@ -37,5 +37,5 @@ class NumberFactorial(Operator):
         return "right"
 
     def get_priority(self) -> int:
-        return OperatorFactory().get_priority("!")
+        return get_priority("!")
 
