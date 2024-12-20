@@ -12,7 +12,7 @@ def validate_equation(equation: list) -> None:
     """
     errors = []
     errors.extend(is_valid_letters(equation))
-    errors.extend(is_valid_operators(equation))
+    #errors.extend(is_valid_operators(equation))
     errors.extend(check_unary_minuses(equation))
     errors.extend(check_1_operands_operators(equation))
     errors.extend(check_2_operands_operators(equation))

@@ -13,7 +13,7 @@ def reformat(equation: str) -> list:
     equation = fix_spaces_in_equation(equation)
     equation = list(equation)
     if not equation:
-        raise ValueError("Cannot Enter An Empty List")
+        raise ValueError("Cannot Enter An Empty Equation.")
     equation = fix_cloned_operators(equation)
     equation = fix_long_numbers(equation)
     equation = fix_float_numbers(equation)

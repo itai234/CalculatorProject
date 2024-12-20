@@ -30,6 +30,7 @@ def two_operands_false_condition(equation:list , i: int , errors:list , right_si
     """
     the function gets current index, the equation and errors list and searches if the location of the 2 operands operator is legal or not.
     (if it is not near parenthesis or right side operators..)
+    this is a helper function for check_2_operands_operators
     """
     if equation[i - 1] not in get_closing_parenthesis() \
             and equation[i + 1] not in get_opening_parenthesis() \
@@ -68,6 +69,7 @@ def handle_1_operands_right_side(equation: list , i: int , errors : list, left_s
     it checks all the legal placements for the right side operators:
     checks situations like 3+! or !3 or ! nad more that are not legal and if it's the case it adds them to the errors list it got.
     so checks for - putting right side operators at the start, putting them with no operators or with left operators like 3!~3,in the start.
+    this is a helper function for : check_1_operands_operators
     """
     temp = equation[i]
     if i + 1 < len(equation) and (check_if_float(equation[i + 1]) or equation[i + 1] in left_side_operators):
@@ -88,6 +90,7 @@ def handle_1_operands_left_side(equation: list , i: int , errors : list, left_si
     it checks all the legal placements for the left operators:
     checks situations like 3~3 or 3!~3 that are not legal and if it's the case it adds them to the errors list it got.
     it also checks if you put the left side operators at the end or before illegal character that they cannot be before.
+    this is a helper function for : check_1_operands_operators
     """
     temp = equation[i]
     if i - 1 >= 0 and (check_if_float(equation[i - 1]) or equation[i - 1] in right_side_operators):

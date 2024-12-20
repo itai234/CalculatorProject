@@ -7,32 +7,10 @@ def is_valid_letters(equation: list) -> list:
     """
     allowed_letters = set(get_all_legal_letters())
     errors = []
-    if not equation or all(char == " " for char in equation):
-        errors.append("The equation is either empty or contains only spaces.")
-    for x in equation:
-        for char in x:
-            if char not in allowed_letters:
-                errors.append(f"Illegal character in the equation : {char} ")
-    return errors
 
-
-def is_valid_operators(equation: list) -> list:
-    """
-    the function receives the equation and checks for duplicated operators , besides + and minus that can be duplicated.
-    if there are duplicates it will add them to the list of errors and return it in the end.
-    """
-    errors = []
-    illegal_duplication = set(get_operators())
-    illegal_duplication.remove('+')
-    illegal_duplication.remove('-')
-    illegal_duplication = list(set(illegal_duplication) - set(get_one_operands_operators_right_side()))
-    i = 0
-    while i < len(equation) - 1:
-        if equation[i] in illegal_duplication and equation[i + 1] == equation[i]:
-            errors.append(f"Cannot Duplicate this type of Operator: {equation[i]}")
-            equation = [item for item in equation if item != equation[i]]
-        else:
-            i += 1
+    for char in ''.join(equation):
+        if char not in allowed_letters:
+            errors.append(f"Illegal character in the equation: {char}")
     return errors
 
 
@@ -73,7 +51,8 @@ def check_for_missing_parenthesis(equation: list) -> list:
 
 def check_missing_parenthesis_after_closing_parenthesis(equation: list, i: int, errors:list, stack:list,element:str,operators_without_left_side:list):
     """
-    the function handles finding missing parenthesis when receiving a closing parenthesis
+    the function handles finding missing parenthesis when receiving a closing parenthesis.
+    this is a helper function for : check_for_missing_parenthesis
     """
     pairs = get_parenthesis_pairs()
     if i + 1 < len(equation) and equation[i + 1] not in operators_without_left_side:
@@ -91,7 +70,8 @@ def check_missing_parenthesis_after_closing_parenthesis(equation: list, i: int, 
 
 def empty_stack(stack: list , errors: list) -> list:
     """
-    the function empties a stack, and if there are elements in the stack it will append to the errors list the elements
+    the function empties a stack, and if there are elements in the stack it will append to the errors list the elements.
+    this is a helper function for : check_for_missing_parenthesis
     """
     while stack:
         unmatched_open, pos = stack.pop()

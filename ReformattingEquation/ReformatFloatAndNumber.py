@@ -41,6 +41,7 @@ def fix_float_numbers(equation: list, precision: int = 100) -> list:
 def fix_float_numbers_handler(equation:list , i: int, precision: int) -> list:
     """
     the function handles the replacing of the dot and connecting the float number itself.
+    this is a helper function for fix_float_numbers.
     """
     if i + 2 >= len(equation):
         raise ValueError("Cannot Put Multiple floating points in one number/ missing parts of the float.")
