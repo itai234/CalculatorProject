@@ -49,7 +49,7 @@ def check_1_operands_operators(equation: list) -> list:
     checking the 1 operands operators.
     it has multiple checks inside of it.
     """
-    operators = get_one_operands_operators()
+    #operators = get_one_operands_operators()
     left_side_operators = get_one_operands_operators_left_side()
     right_side_operators = get_one_operands_operators_right_side()
     errors = []

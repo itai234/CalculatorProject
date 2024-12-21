@@ -1,0 +1,17 @@
+
+    Instructions:
+    - Enter mathematical equations in standard notation for example - (3 + 4 * 2 / (1 - 5) ^ 2).
+    - Write 'EXIT' to close the calculator.
+    - My Calculator Supports :  unary negatives, and parentheses and more.
+    Operators in my Calculator:
+    + Will sum two Operands: 5+5 🟰 10 , 10+5 🟰 15
+    - Will subtract one operand from the other: 5-5 🟰 0 , 10-5 🟰 5
+    * Will multiply two Operands: 5*2 🟰 10
+    / Will divide two Operands: 5/2 🟰 2.5 , 5/0 🟰 X (division by zero)
+    % Will give the modulo of one operand from the other: 5%3 🟰 2, 5%0 🟰 X(cant give modulo of a negative value)
+    $ Will give the maximum value of two Operands: 5$0 🟰 5 , 123$9 🟰 123
+    & Will give the minimum value of two Operands: 5&0 🟰 0 , 123&9 🟰 9
+    @ Will give the avg of two Operands: 5@2 🟰 3.5
+    ~ Will give the negative value of a operand: ~3 🟰 -3 , ~~3 🟰 X (wont work double tilda) , ~-3 🟰 3
+    ! Will give the factorial of a Operand: 3! --> 3*2*1 🟰 6 , (-3)! 🟰 X (only for positive numbers) , 3!! 🟰 (3*2*1)! 🟰 720"
+    # Will sum the digits of a Operand : 2.3# 🟰  5 , 53# 🟰 8 , 99## 🟰 9 (first sum is 18 and then 9
