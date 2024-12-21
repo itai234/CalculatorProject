@@ -8,6 +8,7 @@
     - Will subtract one operand from the other: 5-5 🟰 0 , 10-5 🟰 5
     * Will multiply two Operands: 5*2 🟰 10
     / Will divide two Operands: 5/2 🟰 2.5 , 5/0 🟰 X (division by zero)
+    ^ Will give the power of the first operand by the other: 5^2 🟰 25 , 100^0.5 🟰 10
     % Will give the modulo of one operand from the other: 5%3 🟰 2, 5%0 🟰 X(cant give modulo of a negative value)
     $ Will give the maximum value of two Operands: 5$0 🟰 5 , 123$9 🟰 123
     & Will give the minimum value of two Operands: 5&0 🟰 0 , 123&9 🟰 9
