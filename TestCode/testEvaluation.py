@@ -1,5 +1,5 @@
 
-import  pytest
+import pytest
 from Evaluation.EvaluatePostFixExpression import EvaluationOfPostFix
 from ReformattingEquation.Reformater import reformat
 from Evaluation.TransformInfixToPostFix import *
@@ -36,7 +36,7 @@ def test_simple_valid_expressions():
     assert evaluate_infix("8 @ 2") == 5.0
     assert evaluate_infix("~4") == -4
     assert evaluate_infix("4!") == 24
-    assert evaluate_infix("123#") ==6
+    assert evaluate_infix("123#") == 6
 
 
 def test_complex_valid_expressions():

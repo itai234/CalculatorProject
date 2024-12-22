@@ -8,17 +8,15 @@ def fix_cloned_operators(equation: list) -> list:
     and if there are it will raise an exception
     """
     i = 0
-    allowed_plus = get_closing_parenthesis()
-    allowed_plus.extend(get_numbers())
-    right_operators =get_one_operands_operators()
-    right_operators = list(set(right_operators)-set(get_one_operands_operators_left_side()))
-    allowed_plus.extend(right_operators)
+    allowed_plus = list(PARENTHESIS[1])
+    allowed_plus.extend(list(NUMBERS))
+    allowed_plus.extend(list(ONE_OPERAND_OPERATORS_RIGHT))
 
     while i < len(equation) - 1:
         if equation[i] == '+':
             if i == 0 or equation[i-1] not in allowed_plus:
                 raise ValueError(f"Cannot Put Plus without operators or brackets at location {i+1}")
-            if equation[i+1] in get_closing_parenthesis():
+            if equation[i+1] in PARENTHESIS[1]:
                 raise ValueError(f"Cannot Put Plus and Closing brackets  at location {i+1}")
         if equation[i] in '+' and equation[i] == equation[i + 1]:
             del equation[i+1]

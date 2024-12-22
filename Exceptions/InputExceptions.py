@@ -6,7 +6,7 @@ def is_valid_letters(equation: list) -> list:
     the function receives the equation and checks if all the equation characters are legal , if it isn't
     it will return all the illegal characters in the equation
     """
-    allowed_letters = set(get_all_legal_letters())
+    allowed_letters = set((get_all_legal_letters()))
     errors = []
 
     for char in ''.join(equation):
@@ -21,18 +21,17 @@ def check_for_missing_parenthesis(equation: list) -> list:
     and operators without left side to not include them in certain checks.
     checks for : () ,( , ) ,
     """
-    opening_parenthesis = get_opening_parenthesis()
-    closing_parenthesis = get_closing_parenthesis()
+    opening_parenthesis = list(PARENTHESIS[0])
+    closing_parenthesis = list(PARENTHESIS[1])
     operators_without_right_side = get_operators().copy()
 
     operators_without_right_side = list(set(operators_without_right_side)\
-                                        -set(get_one_operands_operators_right_side()))
-    operators_without_right_side.extend(opening_parenthesis)
+                                        -set(ONE_OPERAND_OPERATORS_RIGHT))
+    operators_without_right_side.extend(list(opening_parenthesis))
     operators_without_left_side = get_operators().copy()
     operators_without_left_side = list(set(operators_without_left_side)\
-                                       - set(get_one_operands_operators_left_side()))
-    operators_without_left_side.extend(closing_parenthesis)
-    pairs = get_parenthesis_pairs()
+                                       - set(ONE_OPERAND_OPERATORS_LEFT))
+    operators_without_left_side.extend(list(closing_parenthesis))
     stack = []
     errors = []
 
@@ -55,7 +54,7 @@ def check_missing_parenthesis_after_closing_parenthesis(equation: list, i: int, 
     the function handles finding missing parenthesis when receiving a closing parenthesis.
     this is a helper function for : check_for_missing_parenthesis
     """
-    pairs = get_parenthesis_pairs()
+    pairs = {PARENTHESIS[0]: PARENTHESIS[1]}
     if i + 1 < len(equation) and equation[i + 1] not in operators_without_left_side:
         errors.append(f"Illegal closing parenthesis at position {i + 1}.")
     if not stack:

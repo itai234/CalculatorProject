@@ -37,7 +37,10 @@ def main():
             result = evaluate(equation)
             print(f"✅ Result: {result}")
         except EOFError:
-            print("Finished")
+            print("try again my dear friend")
+        except KeyboardInterrupt:
+            print("\nFinished")
+            exit(0)
         except Exception as e:
             print(f"⚠️ Error: {e}")
             print("Please try again with a valid equation!")

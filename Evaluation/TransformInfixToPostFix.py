@@ -48,9 +48,9 @@ class InfixToPostfix:
                     self.handle_minus()
                 else:
                     self.handle_operator(element)
-            elif element in get_opening_parenthesis():
+            elif element in PARENTHESIS[0]:
                 self.handle_opening_parenthesis()
-            elif element in get_closing_parenthesis():
+            elif element in PARENTHESIS[1]:
                 self.handle_closing_parenthesis()
             i += 1
         self.clear_remaining_operators()
@@ -65,23 +65,23 @@ class InfixToPostfix:
         checks if in the stack it has a operator with a higher priority or not
         and decided whether to pop elements or push the operator
         """
-        while (self._stack and self._stack[-1] != (get_opening_parenthesis()[0]) and
+        while (self._stack and self._stack[-1] != (PARENTHESIS[0]) and
                get_priority(self._stack[-1]) >= get_priority(element)):
             self._PostFixExpression.append(self._stack.pop())
         self._stack.append(element)
 
     def handle_opening_parenthesis(self):
         # push the opening parenthesis to the stack
-        self._stack.append(get_opening_parenthesis()[0])
+        self._stack.append(PARENTHESIS[0])
 
     def handle_closing_parenthesis(self):
         """
         when getting the closing parenthesis it will append to the postfix expression
         the the result of the postfix inside the parenthesis
         """
-        while self._stack and self._stack[-1] != get_opening_parenthesis()[0]:
+        while self._stack and self._stack[-1] != PARENTHESIS[0]:
             self._PostFixExpression.append(self._stack.pop())
-        if self._stack and self._stack[-1] == get_opening_parenthesis()[0]:
+        if self._stack and self._stack[-1] == PARENTHESIS[0]:
             self._stack.pop()
 
     def clear_remaining_operators(self):
@@ -101,7 +101,7 @@ class InfixToPostfix:
         if it is a regular binary sign it will just append it
         """
         if self.check_unary_minus():
-            while (self._stack and self._stack[-1] != get_opening_parenthesis()[0] and
+            while (self._stack and self._stack[-1] != PARENTHESIS[0] and
                    get_priority(self._stack[-1]) >= get_priority('Unary')):
                 self._PostFixExpression.append(self._stack.pop())
             self._stack.append('Unary')
@@ -112,11 +112,11 @@ class InfixToPostfix:
         """
         checks if it is a unary minus at this position.
         """
-        operators = set(set(get_operators()) - set(get_one_operands_operators_right_side()))
+        operators = set(set(get_operators()) - set(ONE_OPERAND_OPERATORS_RIGHT))
         return (
                 self._prev < 0 or  # At the start of the expression
                 self._InfixExpression[self._prev] in operators or
-                self._InfixExpression[self._prev] in get_opening_parenthesis()
+                self._InfixExpression[self._prev] in PARENTHESIS[0]
         )
 
     def check_if_operand(self, element: str) -> bool:
@@ -125,7 +125,7 @@ class InfixToPostfix:
         """
         if element == '-':
             return False
-        valid_chars = get_numbers() + get_floating_point() + ['-']
+        valid_chars = NUMBERS + FLOATING_POINT + ['-']
         return all(char in valid_chars for char in element)
 
     def get_post_fix(self):

@@ -1,6 +1,7 @@
 
 from ArithmeticFunctionsEvaluations.Properties import *
 
+
 def handle_unary_minus(equation: list) -> list:
     """
     handles unary minus by deleting or -
@@ -11,12 +12,12 @@ def handle_unary_minus(equation: list) -> list:
     i = 0
     while i < len(equation) - 1:
         # Check for consecutive minuses, e.g., "--" case
-        if equation[i] == get_minus() and i + 1 < len(equation) and equation[i + 1] == get_minus() and i == 0:
+        if equation[i] == MINUS and i + 1 < len(equation) and equation[i + 1] == MINUS and i == 0:
             del equation[i]
             del equation[i]
             if len(equation) == 0:
                 raise ValueError("Cannot enter an Empty Equation")
-            if equation[i] not in get_opening_parenthesis() and not check_if_number(equation[i]) and \
+            if equation[i] not in PARENTHESIS[0] and not check_if_number(equation[i]) and \
                     equation[i] != '-':
                 raise ValueError(
                     "The Expression Is Invalid because Unary minus can only be besides brackets,numbers or other "
@@ -36,20 +37,20 @@ def handle_sign_minus(equation: list) -> list:
     or on non numbers
     """
     operators = get_operators()
-    operators = list(set(operators) - set(get_one_operands_operators_right_side()))
+    operators = list(set(operators) - set(ONE_OPERAND_OPERATORS_RIGHT))
     i = 0
     while i < len(equation) - 1:
-        if equation[i] in operators and i + 1 < len(equation) and equation[i + 1] == get_minus() and (
-                i != 0 or equation != get_minus()):
+        if equation[i] in operators and i + 1 < len(equation) and equation[i + 1] == MINUS and (
+                i != 0 or equation != MINUS):
             is_minus = False
             if i + 1 >= len(equation):
                 raise ValueError("Wrong placement for minus in the end.")
-            while equation[i + 1] == get_minus():
+            while equation[i + 1] == MINUS:
                 is_minus = not is_minus
                 del equation[i + 1]
                 if i + 1 >= len(equation):
                     raise ValueError("Wrong placement for minus in the end.")
-            if check_if_number(equation[i + 1]) or equation[i + 1] in get_opening_parenthesis():
+            if check_if_number(equation[i + 1]) or equation[i + 1] in PARENTHESIS[0]:
                 equation = hande_minus_sign_on_chars(equation,is_minus,i)
             else:
                 raise ValueError(f"cannot put minus sign on non numbers, here its on {equation[i+1]} at location {i+1}")
@@ -58,7 +59,7 @@ def handle_sign_minus(equation: list) -> list:
     return equation
 
 
-def hande_minus_sign_on_chars(equation: list, is_minus: bool, i : int  ) -> list:
+def hande_minus_sign_on_chars(equation: list, is_minus: bool, i: int) -> list:
     """
     the function receives the equation , is_minus sign that is a bool and a index ,
     if a minus sign is true for example 5+-5 and not 5+--5 that the minus is deleted , it will put the minus.
@@ -66,8 +67,8 @@ def hande_minus_sign_on_chars(equation: list, is_minus: bool, i : int  ) -> list
     """
     if is_minus:
         if check_if_number(equation[i + 1]):
-            equation[i + 1] = get_minus() + equation[i + 1]
-        if equation[i + 1] in get_opening_parenthesis():
+            equation[i + 1] = MINUS + equation[i + 1]
+        if equation[i + 1] in PARENTHESIS[0]:
             equation = insert_minus_and_parenthesis(equation, i + 1)
     return equation
 
@@ -76,7 +77,7 @@ def check_if_number(equation: str) -> bool:
     """
     validates if the given str is a number or not.
     """
-    legal_chars = get_numbers() +get_floating_point() + list(get_minus())
+    legal_chars = NUMBERS + FLOATING_POINT + list(MINUS)
     return all(char in legal_chars for char in equation)
 
 
@@ -86,17 +87,17 @@ def insert_minus_and_parenthesis(equation: list, index: int) -> list:
     them between a sub equation, it also will make sure if there are parenthesis with a right side operator outside of them
     to include it , for example 10--(5+3)!
     """
-    equation.insert(index, get_opening_parenthesis()[0])
-    equation.insert(index + 1, get_minus())
+    equation.insert(index,PARENTHESIS[0])
+    equation.insert(index + 1, MINUS)
     count = 0
     index += 2
     while index < len(equation):
-        if equation[index] in get_opening_parenthesis():
+        if equation[index] in PARENTHESIS[0]:
             count += 1
-        if equation[index] in get_closing_parenthesis():
+        if equation[index] in PARENTHESIS[1]:
             count -= 1
         if count == 0:
-            equation.insert(index + 1, get_closing_parenthesis()[0])
+            equation.insert(index + 1, PARENTHESIS[1])
             return equation
         index += 1
     return equation

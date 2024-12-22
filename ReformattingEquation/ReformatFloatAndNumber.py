@@ -26,14 +26,14 @@ def fix_float_numbers(equation: list, precision: int = 100) -> list:
     or putting multiple floating points it will raise an error else it will build the number
     """
     i = 0
-    if equation[0] == get_floating_point()[0]:
+    if equation[0] == FLOATING_POINT[0]:
         raise ValueError("Cant Put floating point at the start")
     while i < len(equation) - 1:
-        if equation[i] == get_floating_point()[0]:
+        if equation[i] == FLOATING_POINT[0]:
             if not check_if_float(equation[i - 1]):
                 raise ValueError(f"Invalid Floating Point at {i+1}")
-        if check_if_float(equation[i]) and equation[i + 1] == get_floating_point()[0]:
-            equation = fix_float_numbers_handler(equation,i,precision)
+        if check_if_float(equation[i]) and equation[i + 1] == FLOATING_POINT[0]:
+            equation = fix_float_numbers_handler(equation,i, precision)
         i += 1
     return equation
 

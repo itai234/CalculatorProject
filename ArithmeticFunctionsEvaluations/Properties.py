@@ -60,7 +60,7 @@ TWO_OPERANDS_OPERATORS = []
 ONE_OPERAND_OPERATORS = []
 ONE_OPERAND_OPERATORS_LEFT = []
 ONE_OPERAND_OPERATORS_RIGHT = []
-
+MINUS = "-"
 for key in OPERATORS.keys():
     side = get_side(key)
     if side == "Middle":
@@ -73,57 +73,13 @@ for key in OPERATORS.keys():
         ONE_OPERAND_OPERATORS_RIGHT.append(key)
 
 
-def get_operators() -> list:
-    return list(OPERATORS.keys())
-
-
-def get_numbers() -> list:
-    return list(NUMBERS)
-
-
-def get_parenthesis() -> list:
-    return list(PARENTHESIS)
-
-
-def get_floating_point() -> list:
-    return list(FLOATING_POINT)
-
-
-def get_opening_parenthesis() -> list:
-    return list(PARENTHESIS[0])
-
-
-def get_closing_parenthesis() -> list:
-    return list(PARENTHESIS[1])
-
-
-def get_two_operands_operators() -> list:
-    return list(TWO_OPERANDS_OPERATORS)
-
-
-def get_one_operands_operators() -> list:
-    return list(ONE_OPERAND_OPERATORS)
-
-
-def get_one_operands_operators_left_side() -> list:
-    return list(ONE_OPERAND_OPERATORS_LEFT)
-
-
-def get_one_operands_operators_right_side() -> list:
-    return list(ONE_OPERAND_OPERATORS_RIGHT)
+def get_all_legal_letters() -> list:
+    return list(list(OPERATORS.keys()) + NUMBERS + PARENTHESIS + FLOATING_POINT)
 
 
 def get_priority(operator: str) -> int:
     return PRIORITIES.get(operator)
 
 
-def get_parenthesis_pairs() -> dict:
-    return {PARENTHESIS[0]: PARENTHESIS[1]}
-
-
-def get_all_legal_letters() -> list:
-    return list(get_operators() + get_numbers() + get_parenthesis() + get_floating_point())
-
-
-def get_minus() -> str:
-    return "-"
+def get_operators() -> list:
+    return list(OPERATORS.keys())
