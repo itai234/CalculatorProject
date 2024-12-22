@@ -1,5 +1,6 @@
 from ArithmeticFunctionsEvaluations.Operator import Operator
 
+
 class NumbersMaximum(Operator):
     def execute(self, num1, num2):
         """
