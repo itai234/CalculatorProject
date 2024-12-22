@@ -1,6 +1,4 @@
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.Properties import *
-
 
 class NumbersMaximum(Operator):
     def execute(self, num1, num2):
@@ -16,5 +14,3 @@ class NumbersMaximum(Operator):
     def get_side(self) -> str:
         return "Middle"
 
-    def get_priority(self) -> int:
-        return get_priority("$")

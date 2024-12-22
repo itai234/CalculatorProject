@@ -14,5 +14,3 @@ class NumbersAvg(Operator):
     def get_side(self) -> str:
         return "Middle"
 
-    def get_priority(self) -> int:
-        return get_priority("@")

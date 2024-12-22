@@ -1,6 +1,5 @@
-
+from ArithmeticFunctionsEvaluations.EdgeResults import MAX_RESULT
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumbersMultiplication(Operator):
@@ -12,7 +11,7 @@ class NumbersMultiplication(Operator):
             return 0
         try:
             result = num1 * num2
-            if abs(result) > 10 ** 100:
+            if abs(result) > MAX_RESULT:
                 raise OverflowError("Result too large to compute.")
             return result
         except OverflowError:
@@ -23,5 +22,3 @@ class NumbersMultiplication(Operator):
     def get_side(self) -> str:
         return "Middle"
 
-    def get_priority(self) -> int:
-        return get_priority("*")

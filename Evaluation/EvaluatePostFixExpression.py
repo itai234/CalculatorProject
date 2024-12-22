@@ -1,5 +1,7 @@
+
+from ArithmeticFunctionsEvaluations.Properties import get_side, get_operators
 from ArithmeticFunctionsEvaluations.OperatorFactory import *
-from ArithmeticFunctionsEvaluations.Properties import *
+
 
 class EvaluationOfPostFix:
     """

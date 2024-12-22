@@ -1,5 +1,4 @@
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumberUnaryMinus(Operator):
@@ -14,5 +13,3 @@ class NumberUnaryMinus(Operator):
     def get_side(self) -> str:
         return "left"
 
-    def get_priority(self) -> int:
-        return get_priority("Unary")

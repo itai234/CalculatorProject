@@ -1,8 +1,9 @@
-from Evaluation.EvaluatePostFixExpression import EvaluationOfPostFix
 from ReformattingEquation.Reformater import reformat
+from Evaluation.EvaluatePostFixExpression import EvaluationOfPostFix
 from Evaluation.TransformInfixToPostFix import InfixToPostfix
 
-def evaluate(equation:str):
+
+def evaluate(equation: str):
     infix_converter = InfixToPostfix()
     equation = list(reformat(equation))
     infix_converter.set_expression(equation)
@@ -11,6 +12,7 @@ def evaluate(equation:str):
     evaluator = EvaluationOfPostFix()
     evaluator.set_expression(post_fix)
     return evaluator.evaluate()
+
 
 def main():
     """
@@ -27,14 +29,15 @@ def main():
         try:
             print("-" * 50)
             equation = input("🔢 Enter Your Equation: ")
-            if len(equation)>(10**3):
+            if len(equation) > (10 ** 3):
                 raise OverflowError("Your Equation is too long, try a shorter Equation!")
             if equation.strip().upper() == "EXIT":
                 print("\nThank you for using my calculator! Goodbye! 👋")
                 exit(0)
             result = evaluate(equation)
             print(f"✅ Result: {result}")
-
+        except EOFError:
+            print("Finished")
         except Exception as e:
             print(f"⚠️ Error: {e}")
             print("Please try again with a valid equation!")
@@ -42,4 +45,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

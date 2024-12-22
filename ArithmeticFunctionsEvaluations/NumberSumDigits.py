@@ -1,5 +1,4 @@
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumberSumDigits(Operator):
@@ -19,6 +18,3 @@ class NumberSumDigits(Operator):
 
     def get_side(self) -> str:
         return "right"
-
-    def get_priority(self) -> int:
-        return get_priority("#")

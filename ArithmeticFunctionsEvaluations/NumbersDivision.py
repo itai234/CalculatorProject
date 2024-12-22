@@ -1,5 +1,5 @@
+from ArithmeticFunctionsEvaluations.EdgeResults import MAX_RESULT, MINIMUM_TO_ZERO
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumbersDivision(Operator):
@@ -12,9 +12,9 @@ class NumbersDivision(Operator):
 
         try:
             result = num1 / num2
-            if abs(result) < 10**-10:
+            if abs(result) < MINIMUM_TO_ZERO:
                 return 0
-            if abs(result) > 10**10000:
+            if abs(result) > MAX_RESULT:
                 raise OverflowError("Result is too large to compute.")
             return result
         except OverflowError:
@@ -25,5 +25,3 @@ class NumbersDivision(Operator):
     def get_side(self) -> str:
         return "Middle"
 
-    def get_priority(self) -> int:
-        return get_priority("/")

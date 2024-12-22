@@ -1,5 +1,6 @@
 from ArithmeticFunctionsEvaluations.Properties import *
 
+
 def is_valid_letters(equation: list) -> list:
     """
     the function receives the equation and checks if all the equation characters are legal , if it isn't

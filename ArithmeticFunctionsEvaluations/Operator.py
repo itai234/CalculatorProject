@@ -16,8 +16,5 @@ class Operator(ABC):
         # this will appear in each class of the operators
         pass
 
-    @abstractmethod
-    def get_priority(self) -> int:
-        # this will appear in each class of the operators and give
-        pass
+
 

@@ -1,5 +1,5 @@
+from ArithmeticFunctionsEvaluations.Properties import OPERATORS
 
-from ArithmeticFunctionsEvaluations.Properties import *
 
 class OperatorFactory:
     """
@@ -21,6 +21,7 @@ class OperatorFactory:
         if not hasattr(self, "_initialized"):
             self._operators = OPERATORS
             self._initialized = True
+
     def operation(self, operator_type, num1, num2=None) -> float:
         """
         this function performs the calculation , it receives the operator type like +, - and more ,
@@ -28,5 +29,3 @@ class OperatorFactory:
         or Neg) and it calls the relevant function .
         """
         return self._operators.get(operator_type)().execute(num1, num2)
-
-

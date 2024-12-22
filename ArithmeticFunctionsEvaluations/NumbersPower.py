@@ -1,6 +1,7 @@
 from math import pow
+
+from ArithmeticFunctionsEvaluations.EdgeResults import MAX_RESULT, MINIMUM_TO_ZERO
 from ArithmeticFunctionsEvaluations.Operator import Operator
-from ArithmeticFunctionsEvaluations.Properties import *
 
 
 class NumbersPower(Operator):
@@ -16,9 +17,9 @@ class NumbersPower(Operator):
             raise ArithmeticError("0 raised to a non-positive power is undefined.")
         try:
             result = pow(num1, num2)
-            if result > 10 ** 10000:
+            if result > MAX_RESULT:
                 raise OverflowError("Result too large to compute.")
-            if result < -(10 ** 10):
+            if result < MINIMUM_TO_ZERO:
                 return 0
             return result
         except OverflowError:
@@ -29,5 +30,3 @@ class NumbersPower(Operator):
     def get_side(self) -> str:
         return "Middle"
 
-    def get_priority(self) -> int:
-        return get_priority("^")
